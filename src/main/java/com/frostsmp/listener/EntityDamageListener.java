@@ -157,8 +157,8 @@ public class EntityDamageListener implements Listener {
     private Player resolveAttacker(Entity damager) {
         if (damager instanceof Player) return (Player) damager;
         if (damager instanceof org.bukkit.entity.Projectile) {
-            org.bukkit.entity.ProjectileSource source = ((org.bukkit.entity.Projectile) damager).getShooter();
-            if (source instanceof Player) return (Player) source;
+            org.bukkit.entity.Projectile proj = (org.bukkit.entity.Projectile) damager;
+            if (proj.getShooter() instanceof Player) return (Player) proj.getShooter();
         }
         return null;
     }
