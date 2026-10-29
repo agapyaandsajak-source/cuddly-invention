@@ -59,7 +59,7 @@ public class CustomItems {
         }
 
         if (glow) {
-            meta.addEnchant(Enchantment.ARROW_INFINITE, 1, true);
+            meta.addEnchant(Enchantment.MENDING, 1, true);
             meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         } else {
             meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
