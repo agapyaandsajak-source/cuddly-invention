@@ -2,6 +2,7 @@ package com.frostsmp.ability;
 
 import com.frostsmp.FrostStrengthSMP;
 import com.frostsmp.data.PlayerData;
+import com.frostsmp.listener.ItemUseListener;
 import com.frostsmp.util.MessageUtil;
 import org.bukkit.*;
 import org.bukkit.entity.*;
@@ -199,8 +200,8 @@ public class AbilityManager {
                 broadcast = MessageUtil.component("&6" + player.getName() + "&f used Shield Bash!");
                 break;
             case ARMOR:
-                player.addPotionEffect(new PotionEffect(PotionEffectType.ABSORPTION, 20 * 15, 2, false, false));
-                player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 20 * 15, 1, false, false));
+                player.addPotionEffect(new PotionEffect(PotionEffectType.ABSORPTION, 20 * 15, 2));
+                player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 20 * 15, 1));
                 world.playSound(loc, Sound.ENTITY_IRON_GOLEM_HURT, 1.0f, 1.0f);
                 MessageUtil.send(player, "&6&lIRON SKIN! &fAbsorption and Resistance for 15s.");
                 broadcast = MessageUtil.component("&6" + player.getName() + "&f activated Iron Skin!");

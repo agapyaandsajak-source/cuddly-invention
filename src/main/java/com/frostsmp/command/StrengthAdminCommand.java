@@ -13,7 +13,7 @@ import org.bukkit.entity.Player;
 
 public class StrengthAdminCommand implements CommandExecutor {
 
-    private static final LegacyComponentSerializer PLAIN = LegacyComponentSerializer.legacy();
+    // PLAIN removed
     private final FrostStrengthSMP plugin;
 
     public StrengthAdminCommand(FrostStrengthSMP plugin) {

@@ -29,7 +29,7 @@ public class DiscordCommand implements CommandExecutor {
         if (sender instanceof org.bukkit.entity.Player) {
             ((org.bukkit.entity.Player) sender).sendMessage(text);
         } else {
-            sender.sendMessage(LegacyComponentSerializer.legacy().serialize(text).replace("§", "&"));
+            sender.sendMessage(LegacyComponentSerializer.legacy('§').serialize(text).replace("§", "&"));
         }
         return true;
     }

@@ -7,7 +7,7 @@ import org.bukkit.entity.Player;
 
 public final class MessageUtil {
 
-    private static final LegacyComponentSerializer LEGACY = LegacyComponentSerializer.legacy();
+    private static final LegacyComponentSerializer LEGACY = LegacyComponentSerializer.legacy('§');
 
     private MessageUtil() {}
 

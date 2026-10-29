@@ -7,6 +7,7 @@ import com.frostsmp.config.ConfigManager;
 import com.frostsmp.data.PlayerData;
 import com.frostsmp.listener.*;
 import com.frostsmp.recipe.RecipeManager;
+import com.frostsmp.util.ActionBarTask;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;

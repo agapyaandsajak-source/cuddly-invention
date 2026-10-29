@@ -17,7 +17,7 @@ import java.util.List;
 
 public class CustomItems {
 
-    private static final LegacyComponentSerializer LEGACY = LegacyComponentSerializer.legacy();
+    private static final LegacyComponentSerializer LEGACY = LegacyComponentSerializer.legacy('§');
 
     private static final NamespacedKey KEY_STRENGTH_BOTTLE = new NamespacedKey(FrostStrengthSMP.getInstance(), "strength_bottle");
     private static final NamespacedKey KEY_CROWN = new NamespacedKey(FrostStrengthSMP.getInstance(), "the_crown");

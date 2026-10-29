@@ -16,7 +16,7 @@ import org.bukkit.inventory.PlayerInventory;
 
 public class StrengthCommand implements CommandExecutor {
 
-    private static final LegacyComponentSerializer PLAIN = LegacyComponentSerializer.legacy();
+    // PLAIN removed
     private final FrostStrengthSMP plugin;
 
     public StrengthCommand(FrostStrengthSMP plugin) {

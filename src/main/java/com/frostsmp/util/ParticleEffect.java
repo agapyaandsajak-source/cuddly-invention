@@ -6,7 +6,7 @@ import org.bukkit.World;
 public enum ParticleEffect {
     EXPLOSION(Particle.EXPLOSION),
     FIREWORK(Particle.FIREWORK),
-    VILLAGER_HAPPY(Particle.VILLAGER_HAPPY),
+    VILLAGER_ANGRY(Particle.VILLAGER_ANGRY),
     HEART(Particle.HEART),
     NOTE(Particle.NOTE),
     FLAME(Particle.FLAME),
