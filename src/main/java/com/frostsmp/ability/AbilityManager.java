@@ -130,7 +130,7 @@ public class AbilityManager {
             case AXE:
                 MessageUtil.send(player, "&6&lCLEAVE! &fYour next strike within 10s is devastating.");
                 ItemUseListener.CleaveBuff.put(player.getUniqueId(), System.currentTimeMillis() + 10000L);
-                world.playSound(loc, Sound.ENTITY_VINDICATOR_ATTACK, 1.0f, 1.2f);
+                world.playSound(loc, Sound.BLOCK_ANVIL_LAND, 1.0f, 1.2f);
                 broadcast = MessageUtil.component("&6" + player.getName() + "&f readies Cleave Ultimate!");
                 break;
             case BOW:
@@ -201,7 +201,7 @@ public class AbilityManager {
                 break;
             case ARMOR:
                 player.addPotionEffect(new PotionEffect(PotionEffectType.ABSORPTION, 20 * 15, 2));
-                player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 20 * 15, 1));
+                player.addPotionEffect(new PotionEffect(PotionEffectType.RESISTANCE, 20 * 15, 1));
                 world.playSound(loc, Sound.ENTITY_IRON_GOLEM_HURT, 1.0f, 1.0f);
                 MessageUtil.send(player, "&6&lIRON SKIN! &fAbsorption and Resistance for 15s.");
                 broadcast = MessageUtil.component("&6" + player.getName() + "&f activated Iron Skin!");

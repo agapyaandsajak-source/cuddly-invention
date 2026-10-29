@@ -82,7 +82,7 @@ public class StrengthCommand implements CommandExecutor {
                 + "&7/&c" + plugin.getConfigManager().getMaxStrength()
                 + (data.isLocked() ? " &c[locked]" : ""));
         if (sender instanceof Player) ((Player) sender).sendMessage(msg);
-        else sender.sendMessage(PLAIN.serialize(msg).replace("§", "&"));
+        else sender.sendMessage(net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer.legacy('§').serialize(msg).replace("§", "&"));
         return true;
     }
 

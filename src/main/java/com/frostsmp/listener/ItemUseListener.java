@@ -145,11 +145,11 @@ public class ItemUseListener implements Listener {
 
     public static class CleaveBuff {
         private static final Map<UUID, Long> buffs = new HashMap<>();
-        static void put(UUID uuid, long expiry) { buffs.put(uuid, expiry); }
-        static boolean hasBuff(UUID uuid) {
+        public static void put(UUID uuid, long expiry) { buffs.put(uuid, expiry); }
+        public static boolean hasBuff(UUID uuid) {
             Long e = buffs.get(uuid);
             return e != null && System.currentTimeMillis() < e;
         }
-        static void consume(UUID uuid) { buffs.remove(uuid); }
+        public static void consume(UUID uuid) { buffs.remove(uuid); }
     }
 }
