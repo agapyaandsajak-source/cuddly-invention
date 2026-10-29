@@ -1,0 +1,19 @@
+❄️ FROST SMP — Strength-Based PvP ❄️
+
+Kill to power. Die to weaken.
+
+•  +1 Strength per kill, −1 per death (+1 attack damage per level)
+•  Max +5, Min −5 (locked at spectator until pardoned/banned/revived)
+•  9 Weapon Classes with Passives (+2) & Ultimates (+4)
+•  The Crown: max Strength + 20 hearts
+•  Revive Token: expensive escape from −5 lock
+•  EZ Items: /ez gaps, anvil, shulker, webs
+•  Roles: Member, VIP, MVP, Strength God, Admin
+•  Built-in anti-cheat + Mace lock
+•  Custom spawn + kill/level-up/revive effects
+
+📋 Paper 26.1.2 (MC 1.21.x)
+💬 Discord: https://discord.gg/vPeQfEmyh
+📡 IP: play.frostsmp.example.com
+
+Come claim The Crown. Survive the Frost.

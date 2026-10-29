@@ -1,0 +1,52 @@
+name: FrostStrengthSMP
+version: '${project.version}'
+main: com.frostsmp.FrostStrengthSMP
+api-version: '1.21'
+authors: [FrostSMP]
+description: Frost SMP - Complete Strength SMP with anti-cheat, roles, ez items, custom spawn, recipes, discord, killstreaks, mace lock, and custom effects.
+softdepend: []
+
+commands:
+  strength:
+    description: Main Strength SMP command.
+    usage: /<command> [get|set|class|ability|withdraw|nick|trail|help]
+    aliases: [str, frost, ssmp]
+    permission: frostsmp.use
+  strengthadmin:
+    description: Admin commands for Frost SMP.
+    usage: /<command> [set|reload|reset|ban|pardon|role]
+    permission: frostsmp.admin
+  recipes:
+    description: View Frost SMP crafting recipes.
+    usage: /<command>
+    permission: frostsmp.use
+  discord:
+    description: Show the Frost SMP Discord invite.
+    usage: /<command>
+    permission: frostsmp.use
+  role:
+    description: Manage player roles.
+    usage: /<command> [list|set|info]
+    permission: frostsmp.role
+  spawn:
+    description: Teleport to the Frost SMP spawn.
+    usage: /<command>
+    permission: frostsmp.use
+  ez:
+    description: EZ items (gaps, anvil, shulker, webs).
+    usage: /<command> [gaps|anvil|shulker|webs]
+    permission: frostsmp.ez
+
+permissions:
+  frostsmp.use:
+    description: Basic Frost SMP commands.
+    default: true
+  frostsmp.admin:
+    description: Admin commands.
+    default: op
+  frostsmp.role:
+    description: Role management commands.
+    default: op
+  frostsmp.ez:
+    description: EZ item commands.
+    default: true

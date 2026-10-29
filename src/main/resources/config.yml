@@ -1,0 +1,226 @@
+# Frost SMP - StrengthSMP Configuration
+# Server name: Frost SMP
+# Edit then run /strengthadmin reload
+
+server:
+  name: "&6&lFrost &f&lSMP"
+  discord: "https://discord.gg/vPeQfEmyh"
+
+# Core strength settings
+# MINIMUM is now -5. At -5 strength the player is LOCKED (cannot play) until
+# an admin bans/pardons them or they use a Revive Token.
+strength:
+  starting: 1
+  min: -5
+  max: 5
+  damage-per-level: 1.0
+  gain-on-kill: true
+  gain-amount: 1
+  loss-on-death: true
+  loss-amount: 1
+  drop-bottle-at-max: true
+  natural-death-costs-strength: false
+  drop-bottle-on-death: true
+
+# What happens when strength hits -5: "spectator" (freeze) or "ban" (admin decides)
+strength-lock:
+  enabled: true
+  action-on-min: "spectator"   # spectator | none
+  notify-admins: true
+
+# Killstreak rewards
+killstreaks:
+  enabled: true
+  announce: true
+  reward-bottle-every: 5
+  streaks:
+    3:
+      message: "&a{player} is on a &e3&a killstreak!"
+      firework: true
+    5:
+      message: "&e{player} is on a &6&l5&e killstreak! Strength bottle rewarded."
+      reward-bottle: true
+      firework: true
+    10:
+      message: "&c&lGODLIKE: &f{player} &cis on a &c10+&c killstreak!"
+      reward-bottle: true
+      firework: true
+      strength-bonus: 1
+
+# Weapon classes
+classes:
+  assign-random-class: true
+  passive-unlock: 2
+  ultimate-unlock: 4
+  ultimate-cooldown-ticks: 200
+  announce-ultimate: true
+
+# Crown
+crown:
+  enabled: true
+  item-name: "&6&lThe Crown of Frost"
+  item-lore:
+    - "&7Wear to become the strongest on Frost SMP."
+    - "&7Grants max Strength and 20 hearts."
+  custom-model-data: 101
+  glow: true
+
+# Strength Bottle
+bottle:
+  item-name: "&d&lFrost Strength Bottle"
+  item-lore:
+    - "&7Drink to gain +1 Strength."
+    - "&7Max: {max}"
+  custom-model-data: 102
+  glow: false
+
+# Revive Token (very expensive, only works at -5 strength)
+revive-token:
+  enabled: true
+  item-name: "&c&lRevive Token of Frost"
+  item-lore:
+    - "&7Use when locked at -5 Strength."
+    - "&7Restores you to +1 Strength."
+    - "&cVery expensive to craft!"
+  custom-model-data: 103
+  glow: true
+  # Crafting cost (ingredients)
+  recipe:
+    - "DND"
+    - "NSN"
+    - "DND"
+    # D = Diamond Block, N = Nether Star, S = Strength Bottle
+  restore-strength: 1
+
+# EZ Items
+ez:
+  gaps:
+    enabled: true
+    instant-consume: true
+    recipe-enabled: true
+  anvil:
+    enabled: true
+    repair-cost: 0
+    rename-cost: 0
+  shulker:
+    enabled: true
+    stack-size: 64
+    recipe-enabled: true
+  webs:
+    enabled: true
+    instant-break: true
+    recipe-enabled: true
+
+# Roles system
+roles:
+  enabled: true
+  roles:
+    MEMBER:
+      display: "&7Member"
+      color: "&7"
+      prefix: "&7[Member] "
+      starting-strength: 1
+      cooldown-reduction: 0.0
+      permission: frostsmp.role.member
+    VIP:
+      display: "&aVIP"
+      color: "&a"
+      prefix: "&a[VIP] "
+      starting-strength: 1
+      cooldown-reduction: 0.1
+      permission: frostsmp.role.vip
+    MVP:
+      display: "&eMVP"
+      color: "&e"
+      prefix: "&e[MVP] "
+      starting-strength: 2
+      cooldown-reduction: 0.15
+      permission: frostsmp.role.mvp
+    STRENGTH_GOD:
+      display: "&c&lStrength God"
+      color: "&c"
+      prefix: "&c&l[God] "
+      starting-strength: 3
+      cooldown-reduction: 0.2
+      permission: frostsmp.role.god
+    ADMIN:
+      display: "&4Admin"
+      color: "&4"
+      prefix: "&4[Admin] "
+      starting-strength: 1
+      cooldown-reduction: 0.25
+      permission: frostsmp.role.admin
+
+# Lives / high stakes (optional)
+lives:
+  enabled: false
+  starting-lives: 3
+  zero-lives-action: "ban"
+  drop-bottle-on-lives-death: true
+
+# Anti-cheat (built-in Grim-style)
+anticheat:
+  enabled: true
+  kick-on-violation: true
+  violation-threshold: 15
+  reach-max: 4.2
+  speed-max: 1.15
+  fly-check: true
+  fast-break: true
+  auto-clicker-max-cps: 16
+  kill-aura-tick-threshold: 3
+  exempt-op: true
+
+# Custom spawn
+spawn:
+  enabled: true
+  world: "world"
+  x: 0.5
+  y: 66.0
+  z: 0.5
+  yaw: 0.0
+  pitch: 0.0
+  first-join-effect: true
+
+# Custom effects / particles
+effects:
+  kill-effect: true
+  levelup-effect: true
+  revive-effect: true
+  trail-enabled: false
+  trail-particle: "VILLAGER_HAPPY"
+
+# Action bar
+actionbar:
+  enabled: true
+  interval-seconds: 3
+  format: "&c\u2694 Strength: &f{level}&c/{max} &7| &6Frost SMP"
+
+# Messages
+messages:
+  prefix: "&6&lFrost &f&lSMP &8\u203a &f"
+  gained-strength: "&a+1 Strength! &7(&c{level}&7)"
+  lost-strength: "&c-1 Strength! &7(&c{level}&7)"
+  strength-max: "&eAlready at maximum Strength (&c{max}&e)."
+  strength-min: "&eAlready at minimum Strength (&c{min}&e)."
+  strength-locked: "&c&lLOCKED! &7Your Strength is &c-5&7. You cannot play until an admin pardons you or you use a &c&lRevive Token&7."
+  your-strength: "&eYour Strength: &c{level}&e/&c{max}&e."
+  other-strength: "&e{target}&7's Strength: &c{level}&e/&c{max}&e."
+  strength-set: "&aSet {target}'s Strength to &c{level}&a."
+  strength-withdrew: "&aWithdrew &c{amount}&a Strength into bottle(s)."
+  no-permission: "&cNo permission."
+  not-player: "&cPlayers only."
+  reloaded: "&aFrost SMP config reloaded."
+  discord: "&6Join our Discord: &bhttps://discord.gg/vPeQfEmyh"
+  discord-hover: "&7Click to join the Frost SMP Discord!"
+  mace-blocked: "&cMaces cannot be enchanted on Frost SMP."
+  ezgaps-given: "&aYou received &eEz Golden Apples&a!"
+  ezanvil: "&eEZ Anvil: repair/rename cost set to &c0&e."
+  ezshulker: "&aYou received &eEz Shulker Boxes&a!"
+  ezwebs: "&aYou received &eEz Cobwebs&a!"
+  revive-used: "&aYou were revived! Strength restored to &c{level}&a."
+  revive-cannot: "&cYou cannot use a Revive Token (Strength is not -5)."
+  admin-notify-lock: "&c&lALERT: &f{player} &chas hit -5 Strength and is locked!"
+  admin-banned: "&aBanned &e{player}&a."
+  admin-pardoned: "&aPardoned &e{player}&a. They can play again."
+  admin-revived: "&aRevived &e{player}&a. Strength restored."
