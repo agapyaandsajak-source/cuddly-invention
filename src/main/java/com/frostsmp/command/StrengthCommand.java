@@ -209,7 +209,7 @@ public class StrengthCommand implements CommandExecutor {
 
         ItemStack token = contents[tokenSlot];
         if (token.getAmount() > 1) token.setAmount(token.getAmount() - 1);
-        else ((org.bukkit.inventory.Inventory) player.getInventory()).set(tokenSlot, (ItemStack) null);
+        else player.getInventory().setItem(tokenSlot, (ItemStack) null);
 
         data.setLocked(false);
         data.setStrength(plugin.getConfigManager().getReviveTokenRestoreStrength());
