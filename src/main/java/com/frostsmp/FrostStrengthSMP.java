@@ -6,7 +6,9 @@ import com.frostsmp.command.*;
 import com.frostsmp.config.ConfigManager;
 import com.frostsmp.data.PlayerData;
 import com.frostsmp.listener.*;
+import com.frostsmp.bossbar.BossBarTask;
 import com.frostsmp.recipe.RecipeManager;
+import com.frostsmp.tutorial.TutorialManager;
 import com.frostsmp.util.ActionBarTask;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -25,6 +27,8 @@ public class FrostStrengthSMP extends JavaPlugin implements StrengthAPI {
     private ConfigManager configManager;
     private AbilityManager abilityManager;
     private RecipeManager recipeManager;
+    private BossBarTask bossBarTask;
+    private TutorialManager tutorialManager;
     private final Map<UUID, PlayerData> playerData = new HashMap<>();
     private Location spawnLocation;
 
@@ -39,6 +43,11 @@ public class FrostStrengthSMP extends JavaPlugin implements StrengthAPI {
         recipeManager = new RecipeManager(this);
         recipeManager.registerRecipes();
 
+        bossBarTask = new BossBarTask(this);
+        bossBarTask.runTaskTimer(this, 0L, 20L);
+
+        tutorialManager = new TutorialManager(this);
+
         loadSpawn();
 
         getCommand("strength").setExecutor(new StrengthCommand(this));
@@ -48,6 +57,7 @@ public class FrostStrengthSMP extends JavaPlugin implements StrengthAPI {
         getCommand("role").setExecutor(new RoleCommand(this));
         getCommand("spawn").setExecutor(new SpawnCommand(this));
         getCommand("ez").setExecutor(new EzCommand(this));
+        getCommand("tutorial").setExecutor(new TutorialCommand(this));
 
         Bukkit.getPluginManager().registerEvents(new PlayerJoinListener(this), this);
         Bukkit.getPluginManager().registerEvents(new PlayerQuitListener(this), this);
@@ -89,6 +99,14 @@ public class FrostStrengthSMP extends JavaPlugin implements StrengthAPI {
 
     public RecipeManager getRecipeManager() {
         return recipeManager;
+    }
+
+    public BossBarTask getBossBarTask() {
+        return bossBarTask;
+    }
+
+    public TutorialManager getTutorialManager() {
+        return tutorialManager;
     }
 
     public PlayerData getPlayerData(UUID uuid) {

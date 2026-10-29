@@ -3,6 +3,7 @@ package com.frostsmp.listener;
 import com.frostsmp.FrostStrengthSMP;
 import com.frostsmp.data.PlayerData;
 import com.frostsmp.item.CustomItems;
+import com.frostsmp.tutorial.TutorialManager;
 import com.frostsmp.util.MessageUtil;
 import com.frostsmp.util.SpawnEffect;
 import org.bukkit.Bukkit;
@@ -52,6 +53,13 @@ public class PlayerJoinListener implements Listener {
             player.getInventory().addItem(gapple);
             ItemStack web = new ItemStack(Material.COBWEB, 16);
             player.getInventory().addItem(web);
+        }
+
+        // Show tutorial prompt for new players (with slight delay so messages don't overlap)
+        if (!player.hasPlayedBefore()) {
+            Bukkit.getScheduler().runTaskLater(plugin, () -> {
+                plugin.getTutorialManager().showTutorialPrompt(player);
+            }, 10L);
         }
     }
 }
