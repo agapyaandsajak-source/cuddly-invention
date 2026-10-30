@@ -117,7 +117,7 @@ public class PlayerKillListener implements Listener {
             switch (streak) {
                 case 3:
                 case 5:
-                case 10:
+                case 10: {
                     String displayName = killer.hasPotionEffect(PotionEffectType.INVISIBILITY)
                             ? garbleName(killer.getName()) : killer.getName();
                     String streakMsg = plugin.getConfigManager().getPrefix()
@@ -125,7 +125,8 @@ public class PlayerKillListener implements Listener {
                     killer.getWorld().getPlayers().forEach(p -> p.sendMessage(MessageUtil.component(streakMsg)));
                     SpawnEffect.spawnLevelUpEffect(plugin, killer);
                     break;
-                default:
+                }
+                default: {
                     if (streak > 10 && streak % 5 == 0) {
                         String displayName = killer.hasPotionEffect(PotionEffectType.INVISIBILITY)
                                 ? garbleName(killer.getName()) : killer.getName();
@@ -134,6 +135,7 @@ public class PlayerKillListener implements Listener {
                         killer.getWorld().getPlayers().forEach(p -> p.sendMessage(MessageUtil.component(godMsg)));
                     }
                     break;
+                }
             }
         }
     }
