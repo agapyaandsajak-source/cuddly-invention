@@ -5,7 +5,6 @@ import com.frostsmp.data.PlayerData;
 import com.frostsmp.item.CustomItems;
 import com.frostsmp.util.MessageUtil;
 import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -16,7 +15,6 @@ import org.bukkit.inventory.PlayerInventory;
 
 public class StrengthCommand implements CommandExecutor {
 
-    // PLAIN removed
     private final FrostStrengthSMP plugin;
 
     public StrengthCommand(FrostStrengthSMP plugin) {
@@ -61,17 +59,17 @@ public class StrengthCommand implements CommandExecutor {
         Player target;
         if (args.length >= 2) {
             if (!sender.hasPermission("frostsmp.admin")) {
-                sender.sendMessage("&cYou need admin permission to check others.");
+                sender.sendMessage(MessageUtil.component("&cYou need admin permission to check others."));
                 return true;
             }
             target = Bukkit.getPlayer(args[1]);
             if (target == null) {
-                sender.sendMessage("&cPlayer not found.");
+                sender.sendMessage(MessageUtil.component("&cPlayer not found."));
                 return true;
             }
         } else {
             if (!(sender instanceof Player)) {
-                sender.sendMessage("&cSpecify a player: /strength get <player>");
+                sender.sendMessage(MessageUtil.component("&cSpecify a player: /strength get <player>"));
                 return true;
             }
             target = (Player) sender;
@@ -81,41 +79,44 @@ public class StrengthCommand implements CommandExecutor {
                 + "'s Strength: &c" + data.getStrength()
                 + "&7/&c" + plugin.getConfigManager().getMaxStrength()
                 + (data.isLocked() ? " &c[locked]" : ""));
-        if (sender instanceof Player) ((Player) sender).sendMessage(msg);
-        else sender.sendMessage(net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer.legacy('§').serialize(msg).replace("§", "&"));
+        if (sender instanceof Player) {
+            ((Player) sender).sendMessage(msg);
+        } else {
+            sender.sendMessage(MessageUtil.plain(msg));
+        }
         return true;
     }
 
     private boolean cmdSet(CommandSender sender, String[] args) {
         if (!sender.hasPermission("frostsmp.admin")) {
-            sender.sendMessage("&cNo permission.");
+            sender.sendMessage(MessageUtil.component("&cNo permission."));
             return true;
         }
         if (args.length < 3) {
-            sender.sendMessage("&cUsage: /strength set <player> <amount>");
+            sender.sendMessage(MessageUtil.component("&cUsage: /strength set <player> <amount>"));
             return true;
         }
         Player target = Bukkit.getPlayer(args[1]);
         if (target == null) {
-            sender.sendMessage("&cPlayer not found.");
+            sender.sendMessage(MessageUtil.component("&cPlayer not found."));
             return true;
         }
         int amount;
         try { amount = Integer.parseInt(args[2]); } catch (NumberFormatException e) {
-            sender.sendMessage("&cInvalid number.");
+            sender.sendMessage(MessageUtil.component("&cInvalid number."));
             return true;
         }
         PlayerData data = plugin.getPlayerData(target);
         data.setStrength(amount);
         data.save();
         MessageUtil.send(target, "&eYour Strength was set to &c" + data.getStrength() + "&e by an admin.");
-        sender.sendMessage("&aSet " + target.getName() + "'s Strength to " + data.getStrength());
+        sender.sendMessage(MessageUtil.component("&aSet " + target.getName() + "'s Strength to " + data.getStrength()));
         return true;
     }
 
     private boolean cmdClass(CommandSender sender) {
         if (!(sender instanceof Player)) {
-            sender.sendMessage("&cPlayer-only command.");
+            sender.sendMessage(MessageUtil.component("&cPlayer-only command."));
             return true;
         }
         Player player = (Player) sender;
@@ -126,7 +127,7 @@ public class StrengthCommand implements CommandExecutor {
 
     private boolean cmdAbility(CommandSender sender) {
         if (!(sender instanceof Player)) {
-            sender.sendMessage("&cPlayer-only command.");
+            sender.sendMessage(MessageUtil.component("&cPlayer-only command."));
             return true;
         }
         plugin.getAbilityManager().activateUltimate((Player) sender);
@@ -135,17 +136,17 @@ public class StrengthCommand implements CommandExecutor {
 
     private boolean cmdWithdraw(CommandSender sender, String[] args) {
         if (!(sender instanceof Player)) {
-            sender.sendMessage("&cPlayer-only command.");
+            sender.sendMessage(MessageUtil.component("&cPlayer-only command."));
             return true;
         }
         Player player = (Player) sender;
         if (args.length < 2) {
-            sender.sendMessage("&cUsage: /strength withdraw <amount>");
+            sender.sendMessage(MessageUtil.component("&cUsage: /strength withdraw <amount>"));
             return true;
         }
         int amount;
         try { amount = Integer.parseInt(args[1]); } catch (NumberFormatException e) {
-            sender.sendMessage("&cInvalid number.");
+            sender.sendMessage(MessageUtil.component("&cInvalid number."));
             return true;
         }
         if (amount <= 0) {
@@ -179,7 +180,7 @@ public class StrengthCommand implements CommandExecutor {
 
     private boolean cmdRevive(CommandSender sender) {
         if (!(sender instanceof Player)) {
-            sender.sendMessage("&cPlayer-only command.");
+            sender.sendMessage(MessageUtil.component("&cPlayer-only command."));
             return true;
         }
         Player player = (Player) sender;
@@ -227,12 +228,12 @@ public class StrengthCommand implements CommandExecutor {
 
     private boolean cmdNick(CommandSender sender, String[] args) {
         if (!(sender instanceof Player)) {
-            sender.sendMessage("&cPlayer-only command.");
+            sender.sendMessage(MessageUtil.component("&cPlayer-only command."));
             return true;
         }
         Player player = (Player) sender;
         if (args.length < 2) {
-            sender.sendMessage("&cUsage: /strength nick <name>");
+            sender.sendMessage(MessageUtil.component("&cUsage: /strength nick <name>"));
             return true;
         }
         String nick = String.join(" ", java.util.Arrays.copyOfRange(args, 1, args.length));
@@ -243,7 +244,7 @@ public class StrengthCommand implements CommandExecutor {
 
     private boolean cmdTrail(CommandSender sender) {
         if (!(sender instanceof Player)) {
-            sender.sendMessage("&cPlayer-only command.");
+            sender.sendMessage(MessageUtil.component("&cPlayer-only command."));
             return true;
         }
         Player player = (Player) sender;
@@ -254,25 +255,25 @@ public class StrengthCommand implements CommandExecutor {
 
     private boolean cmdReload(CommandSender sender) {
         if (!sender.hasPermission("frostsmp.admin")) {
-            sender.sendMessage("&cNo permission.");
+            sender.sendMessage(MessageUtil.component("&cNo permission."));
             return true;
         }
         plugin.getConfigManager().reload();
-        sender.sendMessage("&aFrost SMP config reloaded.");
+        sender.sendMessage(MessageUtil.component("&aFrost SMP config reloaded."));
         return true;
     }
 
     private void sendHelp(CommandSender sender) {
-        sender.sendMessage("&6===== &lFrost &f&lSMP &r&6=====");
-        sender.sendMessage("&7/strength &f- Check your Strength");
-        sender.sendMessage("&7/strength class &f- View your Weapon Class");
-        sender.sendMessage("&7/strength ability &f- Use your Ultimate");
-        sender.sendMessage("&7/strength withdraw <n> &f- Convert Strength to bottles");
-        sender.sendMessage("&7/strength nick <name> &f- Set nickname");
+        sender.sendMessage(MessageUtil.component("&6===== &lFrost &f&lSMP &r&6====="));
+        sender.sendMessage(MessageUtil.component("&7/strength &f- Check your Strength"));
+        sender.sendMessage(MessageUtil.component("&7/strength class &f- View your Weapon Class"));
+        sender.sendMessage(MessageUtil.component("&7/strength ability &f- Use your Ultimate"));
+        sender.sendMessage(MessageUtil.component("&7/strength withdraw <n> &f- Convert Strength to bottles"));
+        sender.sendMessage(MessageUtil.component("&7/strength nick <name> &f- Set nickname"));
         if (sender.hasPermission("frostsmp.admin")) {
-            sender.sendMessage("&7/strength set <p> <n> &f- Set a player's Strength");
-            sender.sendMessage("&7/strength reload &f- Reload config");
+            sender.sendMessage(MessageUtil.component("&7/strength set <p> <n> &f- Set a player's Strength"));
+            sender.sendMessage(MessageUtil.component("&7/strength reload &f- Reload config"));
         }
-        sender.sendMessage("&7Version &f" + plugin.getDescription().getVersion());
+        sender.sendMessage(MessageUtil.component("&7Version &f" + plugin.getDescription().getVersion()));
     }
 }
