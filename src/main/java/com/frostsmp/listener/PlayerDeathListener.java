@@ -3,7 +3,9 @@ package com.frostsmp.listener;
 import com.frostsmp.FrostStrengthSMP;
 import com.frostsmp.data.PlayerData;
 import com.frostsmp.item.CustomItems;
+import com.frostsmp.manager.SoulBindManager;
 import com.frostsmp.util.MessageUtil;
+import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -15,14 +17,31 @@ import org.bukkit.inventory.ItemStack;
 public class PlayerDeathListener implements Listener {
 
     private final FrostStrengthSMP plugin;
+    private final SoulBindManager soulBindManager;
 
-    public PlayerDeathListener(FrostStrengthSMP plugin) {
+    public PlayerDeathListener(FrostStrengthSMP plugin, SoulBindManager soulBindManager) {
         this.plugin = plugin;
+        this.soulBindManager = soulBindManager;
     }
 
     @EventHandler
     public void onPlayerDeath(PlayerDeathEvent event) {
         Player victim = event.getEntity();
+
+        // Soul binding: keep soul-bound weapon in inventory
+        ItemStack weapon = victim.getInventory().getItemInMainHand();
+        if (weapon != null && CustomItems.isSoulBound(weapon)) {
+            // Don't drop soul-bound weapons
+            event.getDrops().remove(weapon);
+            victim.getInventory().setItemInMainHand(weapon);
+        }
+
+        // Check offhand too
+        ItemStack offhand = victim.getInventory().getItemInOffHand();
+        if (offhand != null && CustomItems.isSoulBound(offhand)) {
+            event.getDrops().remove(offhand);
+            victim.getInventory().setItemInOffHand(offhand);
+        }
 
         if (plugin.getConfigManager().isLivesEnabled()
                 && victim.getGameMode() != GameMode.CREATIVE) {

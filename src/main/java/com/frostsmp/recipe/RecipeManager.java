@@ -23,6 +23,8 @@ public class RecipeManager {
                 new NamespacedKey(plugin, "frost_strength_bottle"),
                 new NamespacedKey(plugin, "frost_crown"),
                 new NamespacedKey(plugin, "frost_revive_token"),
+                new NamespacedKey(plugin, "frost_strength_shard"),
+                new NamespacedKey(plugin, "frost_reroll_grimoire"),
                 new NamespacedKey(plugin, "frost_ez_gapple"),
                 new NamespacedKey(plugin, "frost_ez_shulker"),
                 new NamespacedKey(plugin, "frost_ez_web"),
@@ -50,12 +52,26 @@ public class RecipeManager {
 
         if (plugin.getConfigManager().isReviveTokenEnabled()) {
             ShapedRecipe token = new ShapedRecipe(new NamespacedKey(plugin, "frost_revive_token"), CustomItems.reviveToken());
-            token.shape("DDD", "NSN", "DDD");
+            token.shape("DND", "NSN", "DND");
             token.setIngredient('D', Material.DIAMOND_BLOCK);
             token.setIngredient('N', Material.NETHER_STAR);
             token.setIngredient('S', Material.POTION);
             Bukkit.addRecipe(token);
         }
+
+        // Strength Shard recipe: 8 diamonds around a strength bottle
+        ShapedRecipe shard = new ShapedRecipe(new NamespacedKey(plugin, "frost_strength_shard"), CustomItems.strengthShard());
+        shard.shape("DDD", "DBD", "DDD");
+        shard.setIngredient('D', Material.DIAMOND);
+        shard.setIngredient('B', Material.POTION);
+        Bukkit.addRecipe(shard);
+
+        // Reroll Grimoire recipe: book surrounded by amethyst shards
+        ShapedRecipe grimoire = new ShapedRecipe(new NamespacedKey(plugin, "frost_reroll_grimoire"), CustomItems.rerollGrimoire());
+        grimoire.shape("AAA", "ABA", "AAA");
+        grimoire.setIngredient('A', Material.AMETHYST_SHARD);
+        grimoire.setIngredient('B', Material.BOOK);
+        Bukkit.addRecipe(grimoire);
 
         if (plugin.getConfigManager().isEzGapsRecipe()) {
             ShapelessRecipe gapple = new ShapelessRecipe(new NamespacedKey(plugin, "frost_ez_gapple"), new ItemStack(Material.GOLDEN_APPLE));

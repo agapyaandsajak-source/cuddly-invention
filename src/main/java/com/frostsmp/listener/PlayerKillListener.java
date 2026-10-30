@@ -45,10 +45,26 @@ public class PlayerKillListener implements Listener {
         int oldKiller = kd.getStrength();
         int oldVictim = vData.getStrength();
 
+        // Kill farming check
+        boolean farmLimited = false;
+        if (plugin.getConfigManager().isAntiFarmEnabled()) {
+            // Check if killer has already killed this victim too many times
+            // This is a simplified check - KillFarmingListener handles the detailed tracking
+            // For now, we just allow the kill but the listener will handle messaging
+        }
+
         if (plugin.getConfigManager().isGainOnKill()) {
             kd.addKill();
             kd.addKillstreak();
             int gain = plugin.getConfigManager().getGainAmount();
+
+            // Underdog bonus: beating someone 3+ STR above you pays double
+            int strDiff = oldVictim - oldKiller;
+            if (strDiff >= 3) {
+                gain *= 2;
+                MessageUtil.send(killer, "&eUnderdog bonus! &7Double strength gain!");
+            }
+
             kd.modifyStrength(gain);
             int newKiller = kd.getStrength();
             kd.save();
@@ -65,10 +81,22 @@ public class PlayerKillListener implements Listener {
             handleKillstreak(killer, kd);
         }
 
+        // Collect bounty if target had one
+        if (plugin.getBountyManager().hasBounty(victim)) {
+            plugin.getBountyManager().collectBounty(killer, victim);
+        }
+
         if (plugin.getConfigManager().isLossOnDeath()) {
             vData.addDeath();
             vData.resetKillstreak();
             int loss = plugin.getConfigManager().getLossAmount();
+
+            // Punished players take double strength loss
+            if (plugin.getPunishCommand().isPunished(victim)) {
+                loss *= 2;
+                MessageUtil.send(victim, "&c&lPUNISHED: Double strength loss applied!");
+            }
+
             vData.modifyStrength(-loss);
             int newVictim = vData.getStrength();
             vData.save();
@@ -92,7 +120,6 @@ public class PlayerKillListener implements Listener {
 
     private String garbleName(String name) {
         StringBuilder sb = new StringBuilder();
-        // §k = obfuscated/magic (scrambled shifting text), §r = reset
         sb.append("§k");
         for (int i = 0; i < name.length(); i++) {
             sb.append("X");

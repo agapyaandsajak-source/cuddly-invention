@@ -3,7 +3,7 @@
 # Edit then run /strengthadmin reload
 
 server:
-  name: "&6&lFrost &f&lSMP"
+  name: "&d&lFrost &b&lSMP"
   discord: "https://discord.gg/vPeQfEmyh"
 
 # Core strength settings
@@ -28,6 +28,22 @@ strength-lock:
   action-on-min: "spectator"   # spectator | none
   notify-admins: true
 
+# Dynamic strength prefix ranks (chat prefix changes with strength level)
+strength-ranks:
+  enabled: true
+  ranks:
+    -5: "&c&l[-5] Locked"
+    -4: "&c[-4]"
+    -3: "&c[-3]"
+    -2: "&7[-2]"
+    -1: "&7[-1]"
+    0: "&f[0]"
+    1: "&a[+1]"
+    2: "&a[+2]"
+    3: "&e[+3]"
+    4: "&6[+4]"
+    5: "&d&l[+5] GOD"
+
 # Killstreak rewards
 killstreaks:
   enabled: true
@@ -35,10 +51,10 @@ killstreaks:
   reward-bottle-every: 5
   streaks:
     3:
-      message: "&a{player} is on a &e3&a killstreak!"
+      message: "&a{player} &fis on a &e3&f killstreak!"
       firework: true
     5:
-      message: "&e{player} is on a &6&l5&e killstreak! Strength bottle rewarded."
+      message: "&e{player} &fis on a &6&l5&e killstreak! Strength bottle rewarded."
       reward-bottle: true
       firework: true
     10:
@@ -46,6 +62,34 @@ killstreaks:
       reward-bottle: true
       firework: true
       strength-bonus: 1
+
+# Anti kill-farming (same victim max rewards per window)
+anti-farm:
+  enabled: true
+  max-kills-per-victim: 2
+  window-minutes: 10
+
+# Combat tag (logging out during combat kills you)
+combat-tag:
+  enabled: true
+  duration-seconds: 15
+  logout-kills: true
+  block-commands: true
+
+# Death protection (no strength loss after dying)
+death-protection:
+  enabled: true
+  duration-seconds: 3600  # 1 hour
+
+# Newbie protection (new joins protected for 1 hour)
+newbie-protection:
+  enabled: true
+  duration-seconds: 3600  # 1 hour
+
+# Totem limiter
+totem-limiter:
+  enabled: true
+  max-totems: 2
 
 # Weapon classes
 classes:
@@ -55,10 +99,24 @@ classes:
   ultimate-cooldown-ticks: 200
   announce-ultimate: true
 
+# Soul binding
+soul-binding:
+  enabled: true
+  cost-strength: 1
+  keep-on-death: true
+  loyalty-return: true
+  undroppable: true
+  holding-particles: true
+
+# Bounties
+bounties:
+  enabled: true
+  announcement: true
+
 # Crown
 crown:
   enabled: true
-  item-name: "&6&lThe Crown of Frost"
+  item-name: "&d&lThe Crown of Frost"
   item-lore:
     - "&7Wear to become the strongest on Frost SMP."
     - "&7Grants max Strength and 20 hearts."
@@ -72,6 +130,33 @@ bottle:
     - "&7Drink to gain +1 Strength."
     - "&7Max: {max}"
   custom-model-data: 102
+  glow: false
+
+# Strength Shard (withdrawn strength item)
+strength-shard:
+  item-name: "&e&lStrength Shard"
+  item-lore:
+    - "&7Right-click to gain +1 Strength."
+    - "&7Tradeable and storable."
+  custom-model-data: 104
+  glow: true
+
+# Reroll Grimoire (class reroll item)
+reroll-grimoire:
+  item-name: "&5&lReroll Grimoire"
+  item-lore:
+    - "&7Right-click to reroll your weapon class."
+    - "&7Costs 1 Strength."
+  custom-model-data: 105
+  glow: true
+
+# Death Certificate (dropped record of a kill)
+death-certificate:
+  item-name: "&8&lDeath Certificate"
+  item-lore:
+    - "&7Record of a kill by &c{killer}&7."
+    - "&7Victim: &c{victim}&7."
+  custom-model-data: 106
   glow: false
 
 # Revive Token (very expensive, only works at -5 strength)
@@ -137,16 +222,16 @@ roles:
       cooldown-reduction: 0.15
       permission: frostsmp.role.mvp
     STRENGTH_GOD:
-      display: "&c&lStrength God"
-      color: "&c"
-      prefix: "&c&l[God] "
+      display: "&d&lStrength God"
+      color: "&d"
+      prefix: "&d&l[God] "
       starting-strength: 3
       cooldown-reduction: 0.2
       permission: frostsmp.role.god
     ADMIN:
-      display: "&4Admin"
-      color: "&4"
-      prefix: "&4[Admin] "
+      display: "&cAdmin"
+      color: "&c"
+      prefix: "&c[Admin] "
       starting-strength: 1
       cooldown-reduction: 0.25
       permission: frostsmp.role.admin
@@ -181,11 +266,11 @@ effects:
 actionbar:
   enabled: true
   interval-seconds: 3
-  format: "&b❄ Strength: &f{level}&b/{max} &b| &bFrost SMP"
+  format: "&d❄ Strength: &f{level}&d/{max} &7| &bFrost SMP"
 
 # Messages
 messages:
-  prefix: "&b&lFrost &f&lSMP &8» &f"
+  prefix: "&d&lFrost &b&lSMP &8» &f"
   gained-strength: "&a+1 Strength! &7(&c{level}&7)"
   lost-strength: "&c-1 Strength! &7(&c{level}&7)"
   strength-max: "&eAlready at maximum Strength (&c{max}&e)."
@@ -194,7 +279,7 @@ messages:
   your-strength: "&eYour Strength: &c{level}&e/&c{max}&e."
   other-strength: "&e{target}&7's Strength: &c{level}&e/&c{max}&e."
   strength-set: "&aSet {target}'s Strength to &c{level}&a."
-  strength-withdrew: "&aWithdrew &c{amount}&a Strength into bottle(s)."
+  strength-withdrew: "&aWithdrew &c{amount}&a Strength into shard(s)."
   no-permission: "&cNo permission."
   not-player: "&cPlayers only."
   reloaded: "&aFrost SMP config reloaded."
@@ -211,3 +296,36 @@ messages:
   admin-banned: "&aBanned &e{player}&a."
   admin-pardoned: "&aPardoned &e{player}&a. They can play again."
   admin-revived: "&aRevived &e{player}&a. Strength restored."
+  # Soul binding
+  bind-success: "&aYour &f{item}&a is now soul-bound!"
+  bind-already: "&cThat item is already soul-bound."
+  bind-cost: "&cYou need &f1 Strength&c to bind this item."
+  bind-not-enough: "&cNot enough Strength to bind."
+  bind-kept: "&eYour soul-bound weapon returns to you!"
+  # Bounties
+  bounty-placed: "&aBounty of &e{amount}&a placed on &f{target}&a."
+  bounty-collected: "&aYou collected the bounty on &f{target}&a!"
+  bounty-target: "&cYou have a bounty on your head!"
+  # Combat tag
+  combat-tagged: "&cYou are in combat! Logging out will kill you."
+  combat-log-killed: "&cYou logged out during combat and were slain!"
+  # Death protection
+  death-protected: "&aDeath protection active - no strength lost."
+  protection-expired: "&cYour death protection has expired."
+  # Newbie protection
+  newbie-protected: "&aNewbie protection active for 1 hour."
+  newbie-expired: "&cYour newbie protection has expired."
+  # Totem limiter
+  totem-limit: "&cYou cannot carry more than &e{max}&c totems!"
+  # Trust system
+  trust-added: "&aAdded &f{target}&a to your trusted players."
+  trust-removed: "&aRemoved &f{target}&a from your trusted players."
+  trust-list: "&eTrusted players: &f{list}"
+  trust-empty: "&eYou have no trusted players."
+  trust-self: "&cYou cannot trust yourself."
+  # Maintenance
+  maintenance-on: "&cMaintenance mode enabled."
+  maintenance-off: "&aMaintenance mode disabled."
+  maintenance-active: "&cThe server is in maintenance mode."
+  # Punish
+  punish-used: "&c&lPUNISHED: &f{player} &closes double strength for 24h."

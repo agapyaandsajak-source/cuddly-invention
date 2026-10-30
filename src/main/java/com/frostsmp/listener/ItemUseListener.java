@@ -1,8 +1,10 @@
 package com.frostsmp.listener;
 
 import com.frostsmp.FrostStrengthSMP;
+import com.frostsmp.ability.WeaponClass;
 import com.frostsmp.data.PlayerData;
 import com.frostsmp.item.CustomItems;
+import com.frostsmp.manager.SoulBindManager;
 import com.frostsmp.util.MessageUtil;
 import com.frostsmp.util.SpawnEffect;
 import net.kyori.adventure.text.Component;
@@ -77,7 +79,9 @@ public class ItemUseListener implements Listener {
         Action action = event.getAction();
         ItemStack item = event.getItem();
 
-        if (item != null && CustomItems.isStrengthBottle(item)) {
+        if (item == null) return;
+
+        if (CustomItems.isStrengthBottle(item)) {
             if (action == Action.RIGHT_CLICK_AIR || action == Action.RIGHT_CLICK_BLOCK) {
                 event.setCancelled(true);
                 drinkBottle(player, item);
@@ -85,10 +89,35 @@ public class ItemUseListener implements Listener {
             }
         }
 
-        if (item != null && CustomItems.isReviveToken(item)) {
+        if (CustomItems.isReviveToken(item)) {
             if (action == Action.RIGHT_CLICK_AIR || action == Action.RIGHT_CLICK_BLOCK) {
                 event.setCancelled(true);
                 useReviveToken(player, item);
+                return;
+            }
+        }
+
+        if (CustomItems.isStrengthShard(item)) {
+            if (action == Action.RIGHT_CLICK_AIR || action == Action.RIGHT_CLICK_BLOCK) {
+                event.setCancelled(true);
+                useStrengthShard(player, item);
+                return;
+            }
+        }
+
+        if (CustomItems.isRerollGrimoire(item)) {
+            if (action == Action.RIGHT_CLICK_AIR || action == Action.RIGHT_CLICK_BLOCK) {
+                event.setCancelled(true);
+                useRerollGrimoire(player, item);
+                return;
+            }
+        }
+
+        if (CustomItems.isDeathCertificate(item)) {
+            if (action == Action.RIGHT_CLICK_AIR || action == Action.RIGHT_CLICK_BLOCK) {
+                event.setCancelled(true);
+                player.sendMessage(MessageUtil.component(
+                        "&8&lDeath Certificate: &7Right-click to see kill details."));
                 return;
             }
         }
@@ -137,6 +166,44 @@ public class ItemUseListener implements Listener {
 
         MessageUtil.send(player, plugin.getConfigManager().getReviveUsed()
                 .replace("{level}", String.valueOf(data.getStrength())));
+    }
+
+    private void useStrengthShard(Player player, ItemStack item) {
+        PlayerData data = plugin.getPlayerData(player);
+        int max = plugin.getConfigManager().getMaxStrength();
+        if (data.getStrength() >= max) {
+            MessageUtil.send(player, "&cYou are already at maximum Strength!");
+            return;
+        }
+        if (plugin.getPunishCommand().isPunished(player)) {
+            MessageUtil.send(player, "&c&lPUNISHED: Cannot use Strength Shard while punished.");
+            return;
+        }
+        data.modifyStrength(1);
+        data.save();
+        MessageUtil.send(player, "&aYou crushed a Strength Shard! &7(&c" + (data.getStrength() - 1) + "&a \u2192 &c" + data.getStrength() + "&7)");
+        player.getWorld().playSound(player.getLocation(), Sound.ENTITY_GENERIC_DRINK, 1.0f, 1.2f);
+        int amount = item.getAmount();
+        if (amount > 1) item.setAmount(amount - 1);
+        else player.getInventory().remove(item);
+    }
+
+    private void useRerollGrimoire(Player player, ItemStack item) {
+        PlayerData data = plugin.getPlayerData(player);
+        int cost = plugin.getConfigManager().getSoulBindCost();
+        if (data.getStrength() < cost) {
+            MessageUtil.send(player, "&cYou need &f" + cost + " Strength&c to reroll your class.");
+            return;
+        }
+        data.modifyStrength(-cost);
+        data.setClassAssigned(false);
+        data.setWeaponClass(WeaponClass.NONE);
+        data.save();
+        int amount = item.getAmount();
+        if (amount > 1) item.setAmount(amount - 1);
+        else player.getInventory().remove(item);
+        plugin.getAbilityManager().assignRandomClass(player);
+        MessageUtil.send(player, "&aYour class has been rerolled! New class: &e" + data.getWeaponClass().getDisplayName());
     }
 
     @EventHandler

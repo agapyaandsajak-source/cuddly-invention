@@ -22,6 +22,10 @@ public class CustomItems {
     private static final NamespacedKey KEY_STRENGTH_BOTTLE = new NamespacedKey(FrostStrengthSMP.getInstance(), "strength_bottle");
     private static final NamespacedKey KEY_CROWN = new NamespacedKey(FrostStrengthSMP.getInstance(), "the_crown");
     private static final NamespacedKey KEY_REVIVE_TOKEN = new NamespacedKey(FrostStrengthSMP.getInstance(), "revive_token");
+    private static final NamespacedKey KEY_STRENGTH_SHARD = new NamespacedKey(FrostStrengthSMP.getInstance(), "strength_shard");
+    private static final NamespacedKey KEY_REROLL_GRIMOIRE = new NamespacedKey(FrostStrengthSMP.getInstance(), "reroll_grimoire");
+    private static final NamespacedKey KEY_DEATH_CERTIFICATE = new NamespacedKey(FrostStrengthSMP.getInstance(), "death_certificate");
+    private static final NamespacedKey KEY_SOUL_BOUND = new NamespacedKey(FrostStrengthSMP.getInstance(), "soul_bound");
 
     public static boolean isStrengthBottle(ItemStack item) {
         return hasTag(item, KEY_STRENGTH_BOTTLE);
@@ -33,6 +37,22 @@ public class CustomItems {
 
     public static boolean isReviveToken(ItemStack item) {
         return hasTag(item, KEY_REVIVE_TOKEN);
+    }
+
+    public static boolean isStrengthShard(ItemStack item) {
+        return hasTag(item, KEY_STRENGTH_SHARD);
+    }
+
+    public static boolean isRerollGrimoire(ItemStack item) {
+        return hasTag(item, KEY_REROLL_GRIMOIRE);
+    }
+
+    public static boolean isDeathCertificate(ItemStack item) {
+        return hasTag(item, KEY_DEATH_CERTIFICATE);
+    }
+
+    public static boolean isSoulBound(ItemStack item) {
+        return hasTag(item, KEY_SOUL_BOUND);
     }
 
     private static boolean hasTag(ItemStack item, NamespacedKey key) {
@@ -96,5 +116,42 @@ public class CustomItems {
         List<String> lore = new ArrayList<>(cfg.getReviveTokenLore());
         return applyDesign(item, cfg.getReviveTokenName(), lore,
                 cfg.getReviveTokenCustomModelData(), cfg.isReviveTokenGlow(), KEY_REVIVE_TOKEN);
+    }
+
+    public static ItemStack strengthShard() {
+        ConfigManager cfg = FrostStrengthSMP.getInstance().getConfigManager();
+        ItemStack item = new ItemStack(Material.DIAMOND, 1);
+        List<String> lore = new ArrayList<>(cfg.getStrengthShardLore());
+        return applyDesign(item, cfg.getStrengthShardName(), lore,
+                cfg.getStrengthShardCustomModelData(), cfg.isStrengthShardGlow(), KEY_STRENGTH_SHARD);
+    }
+
+    public static ItemStack rerollGrimoire() {
+        ConfigManager cfg = FrostStrengthSMP.getInstance().getConfigManager();
+        ItemStack item = new ItemStack(Material.BOOK, 1);
+        List<String> lore = new ArrayList<>(cfg.getRerollGrimoireLore());
+        return applyDesign(item, cfg.getRerollGrimoireName(), lore,
+                cfg.getRerollGrimoireCustomModelData(), cfg.isRerollGrimoireGlow(), KEY_REROLL_GRIMOIRE);
+    }
+
+    public static ItemStack deathCertificate(String killer, String victim) {
+        ConfigManager cfg = FrostStrengthSMP.getInstance().getConfigManager();
+        ItemStack item = new ItemStack(Material.PAPER, 1);
+        List<String> lore = new ArrayList<>(cfg.getDeathCertificateLore());
+        for (int i = 0; i < lore.size(); i++) {
+            lore.set(i, lore.get(i)
+                    .replace("{killer}", killer)
+                    .replace("{victim}", victim));
+        }
+        return applyDesign(item, cfg.getDeathCertificateName(), lore,
+                cfg.getDeathCertificateCustomModelData(), cfg.isDeathCertificateGlow(), KEY_DEATH_CERTIFICATE);
+    }
+
+    public static ItemStack makeSoulBound(ItemStack item) {
+        ItemMeta meta = item.getItemMeta();
+        if (meta == null) return item;
+        meta.getPersistentDataContainer().set(KEY_SOUL_BOUND, PersistentDataType.BYTE, (byte) 1);
+        item.setItemMeta(meta);
+        return item;
     }
 }

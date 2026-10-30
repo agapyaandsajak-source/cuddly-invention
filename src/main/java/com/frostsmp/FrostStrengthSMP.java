@@ -5,9 +5,10 @@ import com.frostsmp.api.StrengthAPI;
 import com.frostsmp.command.*;
 import com.frostsmp.config.ConfigManager;
 import com.frostsmp.data.PlayerData;
+import com.frostsmp.item.CustomItems;
 import com.frostsmp.listener.*;
 import com.frostsmp.bossbar.BossBarTask;
-import com.frostsmp.manager.HomeManager;
+import com.frostsmp.manager.*;
 import com.frostsmp.recipe.RecipeManager;
 import com.frostsmp.tutorial.TutorialManager;
 import com.frostsmp.util.ActionBarTask;
@@ -31,6 +32,12 @@ public class FrostStrengthSMP extends JavaPlugin implements StrengthAPI {
     private BossBarTask bossBarTask;
     private TutorialManager tutorialManager;
     private HomeManager homeManager;
+    private BountyManager bountyManager;
+    private ProtectionManager protectionManager;
+    private CombatTagManager combatTagManager;
+    private SoulBindManager soulBindManager;
+    private PunishCommand punishCommand;
+    private TrustCommand trustCommand;
     private final Map<UUID, PlayerData> playerData = new HashMap<>();
     private Location spawnLocation;
 
@@ -44,6 +51,13 @@ public class FrostStrengthSMP extends JavaPlugin implements StrengthAPI {
         abilityManager = new AbilityManager(this);
         recipeManager = new RecipeManager(this);
         recipeManager.registerRecipes();
+
+        bountyManager = new BountyManager(this);
+        protectionManager = new ProtectionManager(this);
+        combatTagManager = new CombatTagManager(this);
+        soulBindManager = new SoulBindManager(this);
+        punishCommand = new PunishCommand(this);
+        trustCommand = new TrustCommand(this);
 
         bossBarTask = new BossBarTask(this);
         bossBarTask.runTaskTimer(this, 0L, 20L);
@@ -65,6 +79,10 @@ public class FrostStrengthSMP extends JavaPlugin implements StrengthAPI {
         getCommand("home").setExecutor(new HomeCommand(this));
         getCommand("rtp").setExecutor(new RtpCommand(this));
         getCommand("menu").setExecutor(new MenuCommand(this));
+        getCommand("bind").setExecutor(new BindCommand(this, soulBindManager));
+        getCommand("bounty").setExecutor(new BountyCommand(this, bountyManager));
+        getCommand("trust").setExecutor(trustCommand);
+        getCommand("punish").setExecutor(punishCommand);
 
         Bukkit.getPluginManager().registerEvents(new PlayerJoinListener(this), this);
         Bukkit.getPluginManager().registerEvents(new PlayerQuitListener(this), this);
@@ -73,6 +91,11 @@ public class FrostStrengthSMP extends JavaPlugin implements StrengthAPI {
         Bukkit.getPluginManager().registerEvents(new EntityDamageListener(this), this);
         Bukkit.getPluginManager().registerEvents(new ItemUseListener(this), this);
         Bukkit.getPluginManager().registerEvents(new EnchantListener(this), this);
+        Bukkit.getPluginManager().registerEvents(new CombatTagListener(this, combatTagManager), this);
+        Bukkit.getPluginManager().registerEvents(new KillFarmingListener(this), this);
+        Bukkit.getPluginManager().registerEvents(new TotemLimiterListener(this), this);
+        Bukkit.getPluginManager().registerEvents(new ProtectionListener(this, protectionManager), this);
+        Bukkit.getPluginManager().registerEvents(soulBindManager, this);
 
         if (configManager.isActionBarEnabled()) {
             new ActionBarTask(this).runTaskTimer(this, 0L, configManager.getActionBarInterval() * 20L);
@@ -116,6 +139,30 @@ public class FrostStrengthSMP extends JavaPlugin implements StrengthAPI {
 
     public HomeManager getHomeManager() {
         return homeManager;
+    }
+
+    public BountyManager getBountyManager() {
+        return bountyManager;
+    }
+
+    public ProtectionManager getProtectionManager() {
+        return protectionManager;
+    }
+
+    public CombatTagManager getCombatTagManager() {
+        return combatTagManager;
+    }
+
+    public SoulBindManager getSoulBindManager() {
+        return soulBindManager;
+    }
+
+    public PunishCommand getPunishCommand() {
+        return punishCommand;
+    }
+
+    public TrustCommand getTrustCommand() {
+        return trustCommand;
     }
 
     public PlayerData getPlayerData(UUID uuid) {

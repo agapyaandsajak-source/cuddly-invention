@@ -32,6 +32,7 @@ public class StrengthAdminCommand implements CommandExecutor {
             sender.sendMessage(MessageUtil.component("&7/strengthadmin ban <player>"));
             sender.sendMessage(MessageUtil.component("&7/strengthadmin pardon <player>"));
             sender.sendMessage(MessageUtil.component("&7/strengthadmin revive <player>"));
+            sender.sendMessage(MessageUtil.component("&7/strengthadmin punish <player>"));
             return true;
         }
         String sub = args[0].toLowerCase();
@@ -98,6 +99,14 @@ public class StrengthAdminCommand implements CommandExecutor {
                 vTarget.setGameMode(org.bukkit.GameMode.SURVIVAL);
                 sender.sendMessage(plugin.getConfigManager().getAdminRevived().replace("{player}", vTarget.getName()));
                 MessageUtil.send(vTarget, "&aAn admin has revived you! Strength restored.");
+                break;
+            case "punish":
+                if (args.length < 2) { sender.sendMessage(MessageUtil.component("&cUsage: /strengthadmin punish <player>")); return true; }
+                Player punTarget = Bukkit.getPlayer(args[1]);
+                if (punTarget == null) { sender.sendMessage(MessageUtil.component("&cPlayer not found.")); return true; }
+                plugin.getPunishCommand().applyPunish(punTarget);
+                sender.sendMessage(MessageUtil.component("&c&lPUNISHED: " + punTarget.getName() + " now takes double strength loss for 24h."));
+                MessageUtil.send(punTarget, "&c&lYou have been PUNISHED! Double strength loss for 24 hours.");
                 break;
             default:
                 sender.sendMessage(MessageUtil.component("&cUnknown subcommand."));

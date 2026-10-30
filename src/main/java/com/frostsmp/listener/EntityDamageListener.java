@@ -3,6 +3,7 @@ package com.frostsmp.listener;
 import com.frostsmp.FrostStrengthSMP;
 import com.frostsmp.ability.WeaponClass;
 import com.frostsmp.data.PlayerData;
+import com.frostsmp.manager.CombatTagManager;
 import com.frostsmp.util.MessageUtil;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
@@ -18,10 +19,12 @@ import java.util.UUID;
 public class EntityDamageListener implements Listener {
 
     private final FrostStrengthSMP plugin;
+    private final CombatTagManager combatTagManager;
     private final Map<UUID, Long> shieldDisabled = new HashMap<>();
 
-    public EntityDamageListener(FrostStrengthSMP plugin) {
+    public EntityDamageListener(FrostStrengthSMP plugin, CombatTagManager combatTagManager) {
         this.plugin = plugin;
+        this.combatTagManager = combatTagManager;
     }
 
     @EventHandler
@@ -31,6 +34,14 @@ public class EntityDamageListener implements Listener {
 
         Player attacker = resolveAttacker(damager);
         if (attacker == null) return;
+
+        if (plugin.getConfigManager().isCombatTagEnabled()) {
+            long duration = plugin.getConfigManager().getCombatTagDuration() * 1000L;
+            combatTagManager.tag(attacker, duration);
+            if (victim instanceof Player) {
+                combatTagManager.tag((Player) victim, duration);
+            }
+        }
 
         PlayerData data = plugin.getPlayerData(attacker);
 

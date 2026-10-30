@@ -3,7 +3,8 @@ version: '${project.version}'
 main: com.frostsmp.FrostStrengthSMP
 api-version: '1.21'
 authors: [FrostSMP]
-description: Frost SMP - Strength SMP with roles, ez items, custom spawn, recipes, discord, killstreaks, mace lock, and custom effects.
+icon: plugin-icon.png
+description: Frost SMP - Strength SMP with roles, ez items, custom spawn, recipes, discord, killstreaks, mace lock, soul binding, bounties, monarch, totem limiter, combat tag, and custom effects.
 softdepend: []
 
 commands:
@@ -56,6 +57,22 @@ commands:
     description: Open the Frost SMP menu with tabs.
     usage: /<command>
     permission: frostsmp.menu
+  bind:
+    description: Open the soul-binding menu.
+    usage: /<command>
+    permission: frostsmp.use
+  bounty:
+    description: Place a bounty on a player.
+    usage: /<command> <player> <amount>
+    permission: frostsmp.use
+  trust:
+    description: Manage trusted players.
+    usage: /<command> [add|remove|list] [player]
+    permission: frostsmp.use
+  punish:
+    description: Punish a player (double strength loss).
+    usage: /<command> <player>
+    permission: frostsmp.admin
 
 permissions:
   frostsmp.use:

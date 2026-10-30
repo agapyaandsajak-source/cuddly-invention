@@ -166,15 +166,15 @@ public class StrengthCommand implements CommandExecutor {
         data.modifyStrength(-amount);
         data.save();
         PlayerInventory inv = player.getInventory();
-        ItemStack bottle = CustomItems.strengthBottle();
-        bottle.setAmount(amount);
+        ItemStack shard = CustomItems.strengthShard();
+        shard.setAmount(amount);
         if (inv.firstEmpty() == -1) {
-            player.getWorld().dropItemNaturally(player.getLocation(), bottle);
-            MessageUtil.send(player, "&cInventory full! Bottle dropped at your feet.");
+            player.getWorld().dropItemNaturally(player.getLocation(), shard);
+            MessageUtil.send(player, "&cInventory full! Shard dropped at your feet.");
         } else {
-            inv.addItem(bottle);
+            inv.addItem(shard);
         }
-        MessageUtil.send(player, "&aWithdrew &c" + amount + " &aStrength into bottle(s).");
+        MessageUtil.send(player, "&aWithdrew &c" + amount + " &aStrength into shard(s).");
         return true;
     }
 
