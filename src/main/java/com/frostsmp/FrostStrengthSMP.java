@@ -64,6 +64,7 @@ public class FrostStrengthSMP extends JavaPlugin implements StrengthAPI {
         getCommand("tutorial").setExecutor(new TutorialCommand(this));
         getCommand("home").setExecutor(new HomeCommand(this));
         getCommand("rtp").setExecutor(new RtpCommand(this));
+        getCommand("menu").setExecutor(new MenuCommand(this));
 
         Bukkit.getPluginManager().registerEvents(new PlayerJoinListener(this), this);
         Bukkit.getPluginManager().registerEvents(new PlayerQuitListener(this), this);
@@ -72,8 +73,6 @@ public class FrostStrengthSMP extends JavaPlugin implements StrengthAPI {
         Bukkit.getPluginManager().registerEvents(new EntityDamageListener(this), this);
         Bukkit.getPluginManager().registerEvents(new ItemUseListener(this), this);
         Bukkit.getPluginManager().registerEvents(new EnchantListener(this), this);
-        Bukkit.getPluginManager().registerEvents(new MovementListener(this), this);
-        Bukkit.getPluginManager().registerEvents(new InteractListener(this), this);
 
         if (configManager.isActionBarEnabled()) {
             new ActionBarTask(this).runTaskTimer(this, 0L, configManager.getActionBarInterval() * 20L);

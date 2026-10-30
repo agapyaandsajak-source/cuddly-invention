@@ -158,19 +158,6 @@ lives:
   zero-lives-action: "ban"
   drop-bottle-on-lives-death: true
 
-# Anti-cheat (built-in Grim-style)
-anticheat:
-  enabled: true
-  kick-on-violation: true
-  violation-threshold: 15
-  reach-max: 4.2
-  speed-max: 1.15
-  fly-check: true
-  fast-break: true
-  auto-clicker-max-cps: 16
-  kill-aura-tick-threshold: 3
-  exempt-op: true
-
 # Custom spawn
 spawn:
   enabled: true
@@ -198,7 +185,7 @@ actionbar:
 
 # Messages
 messages:
-  prefix: "&6&lFrost &f&lSMP &8› &f"
+  prefix: "&b&lFrost &f&lSMP &8» &f"
   gained-strength: "&a+1 Strength! &7(&c{level}&7)"
   lost-strength: "&c-1 Strength! &7(&c{level}&7)"
   strength-max: "&eAlready at maximum Strength (&c{max}&e)."

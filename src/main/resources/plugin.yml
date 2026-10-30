@@ -3,7 +3,7 @@ version: '${project.version}'
 main: com.frostsmp.FrostStrengthSMP
 api-version: '1.21'
 authors: [FrostSMP]
-description: Frost SMP - Complete Strength SMP with anti-cheat, roles, ez items, custom spawn, recipes, discord, killstreaks, mace lock, and custom effects.
+description: Frost SMP - Strength SMP with roles, ez items, custom spawn, recipes, discord, killstreaks, mace lock, and custom effects.
 softdepend: []
 
 commands:
@@ -52,6 +52,10 @@ commands:
     description: Frost SMP tutorial.
     usage: /<command> [skip|start]
     permission: frostsmp.use
+  menu:
+    description: Open the Frost SMP menu with tabs.
+    usage: /<command>
+    permission: frostsmp.menu
 
 permissions:
   frostsmp.use:
@@ -71,4 +75,7 @@ permissions:
     default: true
   frostsmp.rtp:
     description: Random teleport command.
+    default: true
+  frostsmp.menu:
+    description: Menu command access.
     default: true

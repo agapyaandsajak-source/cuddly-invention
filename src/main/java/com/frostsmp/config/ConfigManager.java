@@ -81,17 +81,6 @@ public class ConfigManager {
     private String zeroLivesAction;
     private boolean dropBottleOnLivesDeath;
 
-    private boolean antiCheatEnabled;
-    private boolean kickOnViolation;
-    private int violationThreshold;
-    private double reachMax;
-    private double speedMax;
-    private boolean flyCheck;
-    private boolean fastBreak;
-    private int autoClickerMaxCps;
-    private int killAuraTickThreshold;
-    private boolean exemptOp;
-
     private boolean spawnEnabled;
     private String spawnWorld;
     private double spawnX, spawnY, spawnZ;
@@ -219,17 +208,6 @@ public class ConfigManager {
         startingLives = config.getInt("lives.starting-lives", 3);
         zeroLivesAction = config.getString("lives.zero-lives-action", "ban");
         dropBottleOnLivesDeath = config.getBoolean("lives.drop-bottle-on-lives-death", true);
-
-        antiCheatEnabled = config.getBoolean("anticheat.enabled", true);
-        kickOnViolation = config.getBoolean("anticheat.kick-on-violation", true);
-        violationThreshold = config.getInt("anticheat.violation-threshold", 15);
-        reachMax = config.getDouble("anticheat.reach-max", 4.2);
-        speedMax = config.getDouble("anticheat.speed-max", 1.15);
-        flyCheck = config.getBoolean("anticheat.fly-check", true);
-        fastBreak = config.getBoolean("anticheat.fast-break", true);
-        autoClickerMaxCps = config.getInt("anticheat.auto-clicker-max-cps", 16);
-        killAuraTickThreshold = config.getInt("anticheat.kill-aura-tick-threshold", 3);
-        exemptOp = config.getBoolean("anticheat.exempt-op", true);
 
         spawnEnabled = config.getBoolean("spawn.enabled", true);
         spawnWorld = config.getString("spawn.world", "world");
@@ -362,17 +340,6 @@ public class ConfigManager {
     public int getStartingLives() { return startingLives; }
     public String getZeroLivesAction() { return zeroLivesAction; }
     public boolean isDropBottleOnLivesDeath() { return dropBottleOnLivesDeath; }
-
-    public boolean isAntiCheatEnabled() { return antiCheatEnabled; }
-    public boolean isKickOnViolation() { return kickOnViolation; }
-    public int getViolationThreshold() { return violationThreshold; }
-    public double getReachMax() { return reachMax; }
-    public double getSpeedMax() { return speedMax; }
-    public boolean isFlyCheck() { return flyCheck; }
-    public boolean isFastBreak() { return fastBreak; }
-    public int getAutoClickerMaxCps() { return autoClickerMaxCps; }
-    public int getKillAuraTickThreshold() { return killAuraTickThreshold; }
-    public boolean isExemptOp() { return exemptOp; }
 
     public boolean isSpawnEnabled() { return spawnEnabled; }
     public String getSpawnWorld() { return spawnWorld; }
