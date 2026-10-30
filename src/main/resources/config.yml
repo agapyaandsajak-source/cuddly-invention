@@ -171,7 +171,8 @@ anticheat:
   kill-aura-tick-threshold: 3
   exempt-op: true
 
-# Home settings\nhome:\n  enabled: true\n  cooldown-seconds: 5\n  max-homes: 1\n\n# RTP (random teleport) settings\nrtp:\n  enabled: true\n  cooldown-seconds: 30\n  range: 5000\n  max-attempts: 100\n\n# Custom spawn\nspawn:
+# Custom spawn
+spawn:
   enabled: true
   world: "world"
   x: 0.5
@@ -193,11 +194,11 @@ effects:
 actionbar:
   enabled: true
   interval-seconds: 3
-  format: "&c\u2694 Strength: &f{level}&c/{max} &7| &6Frost SMP"
+  format: "&b❄ Strength: &f{level}&b/{max} &b| &bFrost SMP"
 
 # Messages
 messages:
-  prefix: "&6&lFrost &f&lSMP &8\u203a &f"
+  prefix: "&6&lFrost &f&lSMP &8› &f"
   gained-strength: "&a+1 Strength! &7(&c{level}&7)"
   lost-strength: "&c-1 Strength! &7(&c{level}&7)"
   strength-max: "&eAlready at maximum Strength (&c{max}&e)."
