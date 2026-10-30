@@ -73,6 +73,10 @@ commands:
     description: Punish a player (double strength loss).
     usage: /<command> <player>
     permission: frostsmp.admin
+  locate:
+    description: Locate structures (admin only).
+    usage: /<command> <structure>
+    permission: frostsmp.admin
 
 permissions:
   frostsmp.use:

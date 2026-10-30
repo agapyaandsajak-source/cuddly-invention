@@ -18,7 +18,7 @@ import org.bukkit.inventory.ItemStack;
 public class PlayerKillListener implements Listener {
 
     private final FrostStrengthSMP plugin;
-    private static final LegacyComponentSerializer LEGACY = LegacyComponentSerializer.legacy('§');
+    private static final LegacyComponentSerializer LEGACY = LegacyComponentSerializer.legacy('&');
 
     public PlayerKillListener(FrostStrengthSMP plugin) {
         this.plugin = plugin;

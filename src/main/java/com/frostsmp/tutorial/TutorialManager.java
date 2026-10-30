@@ -32,7 +32,7 @@ public class TutorialManager {
     public void showTutorialPrompt(Player player) {
         if (isTutorialCompleted(player)) return;
 
-        LegacyComponentSerializer legacy = LegacyComponentSerializer.legacy('§');
+        LegacyComponentSerializer legacy = LegacyComponentSerializer.legacy('&');
         String prefix = plugin.getConfigManager().getPrefix();
 
         Component welcome = legacy.deserialize(prefix + "&eWelcome to &6&lFrosting SMP&e! &7Here is how the server works:");
@@ -105,7 +105,7 @@ public class TutorialManager {
     }
 
     private Component legacyDeserialize(String msg) {
-        return LegacyComponentSerializer.legacy('§').deserialize(
+        return LegacyComponentSerializer.legacy('&').deserialize(
                 plugin.getConfigManager().getPrefix() + msg
         );
     }

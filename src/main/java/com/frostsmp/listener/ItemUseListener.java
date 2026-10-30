@@ -121,11 +121,6 @@ public class ItemUseListener implements Listener {
                 return;
             }
         }
-
-        if ((action == Action.RIGHT_CLICK_AIR || action == Action.RIGHT_CLICK_BLOCK) && player.isSneaking()) {
-            event.setCancelled(true);
-            plugin.getAbilityManager().activateUltimate(player);
-        }
     }
 
     private void drinkBottle(Player player, ItemStack item) {

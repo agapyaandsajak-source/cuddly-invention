@@ -46,7 +46,7 @@ public class MenuCommand implements CommandExecutor, Listener {
     }
 
     private void openMenu(Player player, int page) {
-        Inventory gui = Bukkit.createInventory(null, 54, net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer.legacy('§').serialize(MessageUtil.component("&b❄ Frost SMP Menu &8» &7Page " + (page + 1))));
+        Inventory gui = Bukkit.createInventory(null, 54, MessageUtil.component("&b❄ Frost SMP Menu &8» &7Page " + (page + 1)));
 
         // Fill background with gray stained glass panes
         for (int i = 0; i < 54; i++) {

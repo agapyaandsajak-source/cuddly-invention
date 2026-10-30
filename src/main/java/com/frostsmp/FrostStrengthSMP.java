@@ -83,6 +83,7 @@ public class FrostStrengthSMP extends JavaPlugin implements StrengthAPI {
         getCommand("bounty").setExecutor(new BountyCommand(this, bountyManager));
         getCommand("trust").setExecutor(trustCommand);
         getCommand("punish").setExecutor(punishCommand);
+        getCommand("locate").setExecutor(new LocateCommand(this));
 
         Bukkit.getPluginManager().registerEvents(new PlayerJoinListener(this), this);
         Bukkit.getPluginManager().registerEvents(new PlayerQuitListener(this), this);

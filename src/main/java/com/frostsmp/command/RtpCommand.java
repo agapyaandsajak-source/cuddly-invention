@@ -16,7 +16,7 @@ public class RtpCommand implements CommandExecutor {
 
     private final FrostStrengthSMP plugin;
     private final HomeManager homeManager;
-    private static final LegacyComponentSerializer LEGACY = LegacyComponentSerializer.legacy('§');
+    private static final LegacyComponentSerializer LEGACY = LegacyComponentSerializer.legacy('&');
 
     public RtpCommand(FrostStrengthSMP plugin) {
         this.plugin = plugin;
