@@ -25,6 +25,7 @@ public class PlayerData {
     private int killstreak;
     private long lastAttackMillis;
     private boolean locked;
+    private int rebirths;
 
     // Home location
     private Double homeX;
@@ -51,6 +52,7 @@ public class PlayerData {
             this.deaths = 0;
             this.lives = plugin.getConfigManager().getStartingLives();
             this.killstreak = 0;
+            this.rebirths = 0;
             this.lastAttackMillis = 0;
             this.locked = false;
             save();
@@ -70,6 +72,7 @@ public class PlayerData {
         this.deaths = cfg.getInt("deaths", 0);
         this.lives = cfg.getInt("lives", plugin.getConfigManager().getStartingLives());
         this.killstreak = cfg.getInt("killstreak", 0);
+        this.rebirths = cfg.getInt("rebirths", 0);
         this.lastAttackMillis = cfg.getLong("last-attack-millis", 0);
         this.locked = cfg.getBoolean("locked", false);
 
@@ -110,6 +113,7 @@ public class PlayerData {
             cfg.set("deaths", deaths);
             cfg.set("lives", lives);
             cfg.set("killstreak", killstreak);
+            cfg.set("rebirths", rebirths);
             cfg.set("last-attack-millis", lastAttackMillis);
             cfg.set("locked", locked);
 
@@ -177,6 +181,10 @@ public class PlayerData {
 
     public boolean isLocked() { return locked; }
     public void setLocked(boolean locked) { this.locked = locked; }
+
+    public int getRebirths() { return rebirths; }
+    public void setRebirths(int rebirths) { this.rebirths = rebirths; }
+    public void addRebirth() { this.rebirths++; }
 
     public Location getHomeLocation() {
         if (homeX == null || homeY == null || homeZ == null || homeWorld == null) return null;

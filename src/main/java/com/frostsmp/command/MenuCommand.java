@@ -58,7 +58,7 @@ public class MenuCommand implements CommandExecutor, Listener {
         // Tab items (top row)
         gui.setItem(0, createItem(Material.COMPASS, "&b&l» Tab: Stats", "&7View your strength & class"));
         gui.setItem(1, createItem(Material.BOOK, "&b&l» Tab: Classes", "&7View weapon classes"));
-        gui.setItem(2, createItem(Material.CROWN, "&b&l» Tab: Crown", "&7View crown info"));
+        gui.setItem(2, createItem(Material.GOLDEN_HELMET, "&b&l» Tab: Crown", "&7View crown info"));
         gui.setItem(3, createItem(Material.NETHER_STAR, "&b&l» Tab: Rebirth", "&7Rebirth information"));
         gui.setItem(4, createItem(Material.BARRIER, "&c&l» Close", "&7Close the menu"));
 
@@ -82,7 +82,7 @@ public class MenuCommand implements CommandExecutor, Listener {
 
         // Page 1 content: Shop / Info
         if (page == 1) {
-            gui.setItem(11, createItem(Material.GOLD_APPLE, "&b&l2x Cash", "&7Gamepass: Doubles earnings"));
+            gui.setItem(11, createItem(Material.GOLDEN_APPLE, "&b&l2x Cash", "&7Gamepass: Doubles earnings"));
             gui.setItem(12, createItem(Material.CLOCK, "&b&lAuto-Click", "&7Automatic clicking QoL"));
             gui.setItem(13, createItem(Material.ENDER_PEARL, "&b&lSuper Luck", "&7+100% hatch rates"));
             gui.setItem(14, createItem(Material.NETHER_STAR, "&b&lVIP Status", "&7Cosmetics & passive boost"));
