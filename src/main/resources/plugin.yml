@@ -48,6 +48,10 @@ commands:
     description: Random teleport to a safe location.
     usage: /<command>
     permission: frostsmp.rtp
+  tutorial:
+    description: Frost SMP tutorial.
+    usage: /<command> [skip|start]
+    permission: frostsmp.use
 
 permissions:
   frostsmp.use:
