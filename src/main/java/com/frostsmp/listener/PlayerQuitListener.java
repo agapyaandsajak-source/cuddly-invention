@@ -32,5 +32,6 @@ public class PlayerQuitListener implements Listener {
             abilityManager.clearCooldown(player);
         }
         com.frostsmp.listener.ItemUseListener.removeCrown(player);
+        plugin.getTpaManager().clearRequest(player);
     }
 }

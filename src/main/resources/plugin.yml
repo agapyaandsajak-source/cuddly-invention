@@ -77,6 +77,18 @@ commands:
     description: Locate structures (admin only).
     usage: /<command> <structure>
     permission: frostsmp.admin
+  tpa:
+    description: Request to teleport to a player.
+    usage: /<command> <player>
+    permission: frostsmp.use
+  tpaccept:
+    description: Accept a teleport request.
+    usage: /<command>
+    permission: frostsmp.use
+  tpdeny:
+    description: Deny a teleport request.
+    usage: /<command>
+    permission: frostsmp.use
 
 permissions:
   frostsmp.use:
@@ -99,4 +111,7 @@ permissions:
     default: true
   frostsmp.menu:
     description: Menu command access.
+    default: true
+  frostsmp.tpa:
+    description: Teleport request commands.
     default: true

@@ -9,8 +9,7 @@ import com.frostsmp.item.CustomItems;
 import com.frostsmp.listener.*;
 import com.frostsmp.bossbar.BossBarTask;
 import com.frostsmp.manager.*;
-import com.frostsmp.recipe.RecipeManager;
-import com.frostsmp.tutorial.TutorialManager;
+import com.frostsmp.recipe.RecipeManager;import com.frostsmp.tutorial.TutorialManager;
 import com.frostsmp.util.ActionBarTask;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -38,6 +37,7 @@ public class FrostStrengthSMP extends JavaPlugin implements StrengthAPI {
     private SoulBindManager soulBindManager;
     private PunishCommand punishCommand;
     private TrustCommand trustCommand;
+    private TpaManager tpaManager;
     private final Map<UUID, PlayerData> playerData = new HashMap<>();
     private Location spawnLocation;
 
@@ -58,6 +58,7 @@ public class FrostStrengthSMP extends JavaPlugin implements StrengthAPI {
         soulBindManager = new SoulBindManager(this);
         punishCommand = new PunishCommand(this);
         trustCommand = new TrustCommand(this);
+        tpaManager = new TpaManager(this);
 
         bossBarTask = new BossBarTask(this);
         bossBarTask.runTaskTimer(this, 0L, 20L);
@@ -84,6 +85,9 @@ public class FrostStrengthSMP extends JavaPlugin implements StrengthAPI {
         getCommand("trust").setExecutor(trustCommand);
         getCommand("punish").setExecutor(punishCommand);
         getCommand("locate").setExecutor(new LocateCommand(this));
+        getCommand("tpa").setExecutor(new TpaCommand(this, tpaManager));
+        getCommand("tpaccept").setExecutor(new TpaCommand(this, tpaManager));
+        getCommand("tpdeny").setExecutor(new TpaCommand(this, tpaManager));
 
         Bukkit.getPluginManager().registerEvents(new PlayerJoinListener(this), this);
         Bukkit.getPluginManager().registerEvents(new PlayerQuitListener(this), this);
@@ -164,6 +168,10 @@ public class FrostStrengthSMP extends JavaPlugin implements StrengthAPI {
 
     public TrustCommand getTrustCommand() {
         return trustCommand;
+    }
+
+    public TpaManager getTpaManager() {
+        return tpaManager;
     }
 
     public PlayerData getPlayerData(UUID uuid) {

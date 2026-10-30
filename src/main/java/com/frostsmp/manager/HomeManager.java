@@ -1,6 +1,7 @@
 package com.frostsmp.manager;
 
 import com.frostsmp.FrostStrengthSMP;
+import com.frostsmp.data.PlayerData;
 import com.frostsmp.util.SafeTeleportUtil;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -62,20 +63,51 @@ public class HomeManager {
         rtpCooldowns.put(player.getUniqueId(), System.currentTimeMillis() + (seconds * 1000L));
     }
 
-    public Location getHome(Player player) {
-        return plugin.getPlayerData(player).getHomeLocation();
+    // Named home methods (Donut SMP style)
+    public Location getHome(Player player, String name) {
+        return plugin.getPlayerData(player).getHomeLocation(name);
     }
 
-    public void setHome(Player player, Location location) {
-        plugin.getPlayerData(player).setHomeLocation(location);
+    public void setHome(Player player, String name, Location location) {
+        int maxHomes = plugin.getConfigManager().getMaxHomes();
+        PlayerData data = plugin.getPlayerData(player);
+
+        if (location == null) {
+            data.removeHome(name);
+            return;
+        }
+
+        if (!data.hasHome(name) && data.getHomeCount() >= maxHomes) {
+            // Can't add a new home, at max
+            return;
+        }
+
+        data.setHomeLocation(name, location);
+        data.save();
     }
 
-    public boolean hasHome(Player player) {
-        return plugin.getPlayerData(player).getHomeLocation() != null;
+    public boolean hasHome(Player player, String name) {
+        return plugin.getPlayerData(player).hasHome(name);
     }
 
-    public void removeHome(Player player) {
-        plugin.getPlayerData(player).setHomeLocation(null);
+    public boolean hasAnyHome(Player player) {
+        return plugin.getPlayerData(player).getHomeCount() > 0;
+    }
+
+    public void removeHome(Player player, String name) {
+        plugin.getPlayerData(player).removeHome(name);
+    }
+
+    public Map<String, Location> getAllHomes(Player player) {
+        return plugin.getPlayerData(player).getAllHomes();
+    }
+
+    public int getHomeCount(Player player) {
+        return plugin.getPlayerData(player).getHomeCount();
+    }
+
+    public int getMaxHomes(Player player) {
+        return plugin.getConfigManager().getMaxHomes();
     }
 
     public Location findRtpLocation(Player player) {

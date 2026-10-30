@@ -254,6 +254,19 @@ spawn:
   pitch: 0.0
   first-join-effect: true
 
+# Home settings (Donut SMP style named homes)
+home:
+  enabled: true
+  max-homes: 3
+  cooldown-seconds: 5
+
+# RTP settings
+rtp:
+  enabled: true
+  cooldown-seconds: 30
+  range: 5000
+  max-attempts: 100
+
 # Custom effects / particles
 effects:
   kill-effect: true
