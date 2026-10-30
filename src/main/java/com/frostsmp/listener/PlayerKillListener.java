@@ -5,16 +5,20 @@ import com.frostsmp.data.PlayerData;
 import com.frostsmp.item.CustomItems;
 import com.frostsmp.util.MessageUtil;
 import com.frostsmp.util.SpawnEffect;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.potion.PotionEffectType;
 import org.bukkit.inventory.ItemStack;
 
 public class PlayerKillListener implements Listener {
 
     private final FrostStrengthSMP plugin;
+    private static final LegacyComponentSerializer LEGACY = LegacyComponentSerializer.legacy('§');
 
     public PlayerKillListener(FrostStrengthSMP plugin) {
         this.plugin = plugin;
@@ -76,6 +80,25 @@ public class PlayerKillListener implements Listener {
                 }
             }
         }
+
+        // Custom death message: garble killer name if they are invisible
+        boolean invisible = killer.hasPotionEffect(PotionEffectType.INVISIBILITY);
+        event.setDeathMessage(null);
+        String displayName = invisible ? garbleName(killer.getName()) : killer.getName();
+        Component msg = LEGACY.deserialize(plugin.getConfigManager().getPrefix()
+                + "&7" + displayName + "&c slayed &4" + victim.getName() + "&c.");
+        killer.getWorld().getPlayers().forEach(p -> p.sendMessage(msg));
+    }
+
+    private String garbleName(String name) {
+        StringBuilder sb = new StringBuilder();
+        // §k = obfuscated/magic (scrambled shifting text), §r = reset
+        sb.append("§k");
+        for (int i = 0; i < name.length(); i++) {
+            sb.append("X");
+        }
+        sb.append("§r");
+        return sb.toString();
     }
 
     private void handleKillstreak(Player killer, PlayerData kd) {
@@ -95,15 +118,19 @@ public class PlayerKillListener implements Listener {
                 case 3:
                 case 5:
                 case 10:
+                    String displayName = killer.hasPotionEffect(PotionEffectType.INVISIBILITY)
+                            ? garbleName(killer.getName()) : killer.getName();
                     String streakMsg = plugin.getConfigManager().getPrefix()
-                            + "&e" + killer.getName() + " is on a &c" + streak + "&e killstreak!";
+                            + "&e" + displayName + " is on a &c" + streak + "&e killstreak!";
                     killer.getWorld().getPlayers().forEach(p -> p.sendMessage(MessageUtil.component(streakMsg)));
                     SpawnEffect.spawnLevelUpEffect(plugin, killer);
                     break;
                 default:
                     if (streak > 10 && streak % 5 == 0) {
+                        String displayName = killer.hasPotionEffect(PotionEffectType.INVISIBILITY)
+                                ? garbleName(killer.getName()) : killer.getName();
                         String godMsg = plugin.getConfigManager().getPrefix()
-                                + "&c&lGODLIKE: &f" + killer.getName() + " &cis on a &c" + streak + "+&c killstreak!";
+                                + "&c&lGODLIKE: &f" + displayName + " &cis on a &c" + streak + "+&c killstreak!";
                         killer.getWorld().getPlayers().forEach(p -> p.sendMessage(MessageUtil.component(godMsg)));
                     }
                     break;
