@@ -75,8 +75,8 @@ public class HomeCommand implements CommandExecutor {
             return true;
         }
 
-        // Check if home world is loaded
-        if (home.getWorld() == null || !home.getWorld().isLoaded()) {
+        // Check if home world is valid
+        if (home.getWorld() == null) {
             MessageUtil.send(player, "&cYour home world is not loaded.");
             return true;
         }
