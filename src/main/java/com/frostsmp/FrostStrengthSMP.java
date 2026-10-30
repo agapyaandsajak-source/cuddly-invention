@@ -87,8 +87,8 @@ public class FrostStrengthSMP extends JavaPlugin implements StrengthAPI {
         Bukkit.getPluginManager().registerEvents(new PlayerJoinListener(this), this);
         Bukkit.getPluginManager().registerEvents(new PlayerQuitListener(this), this);
         Bukkit.getPluginManager().registerEvents(new PlayerKillListener(this), this);
-        Bukkit.getPluginManager().registerEvents(new PlayerDeathListener(this), this);
-        Bukkit.getPluginManager().registerEvents(new EntityDamageListener(this), this);
+        Bukkit.getPluginManager().registerEvents(new PlayerDeathListener(this, soulBindManager), this);
+        Bukkit.getPluginManager().registerEvents(new EntityDamageListener(this, combatTagManager), this);
         Bukkit.getPluginManager().registerEvents(new ItemUseListener(this), this);
         Bukkit.getPluginManager().registerEvents(new EnchantListener(this), this);
         Bukkit.getPluginManager().registerEvents(new CombatTagListener(this, combatTagManager), this);

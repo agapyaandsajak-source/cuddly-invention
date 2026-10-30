@@ -18,6 +18,7 @@ public class CombatTagListener implements Listener {
 
     private final FrostStrengthSMP plugin;
     private final CombatTagManager combatTagManager;
+    private static final LegacyComponentSerializer LEGACY = LegacyComponentSerializer.legacy('&');
 
     public CombatTagListener(FrostStrengthSMP plugin, CombatTagManager combatTagManager) {
         this.plugin = plugin;
@@ -78,7 +79,7 @@ public class CombatTagListener implements Listener {
             player.setHealth(0.0);
             String msg = plugin.getConfigManager().getPrefix()
                     + "&c" + player.getName() + "&c logged out during combat and was slain!";
-            Bukkit.broadcastMessage(LegacyComponentSerializer.legacy('&').deserialize(msg));
+            Bukkit.broadcast(LEGACY.deserialize(msg));
         }
         combatTagManager.untag(player);
     }

@@ -5,6 +5,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -16,6 +17,7 @@ public class BountyManager {
     private final FrostStrengthSMP plugin;
     private final Map<UUID, Integer> bounties = new HashMap<>(); // target -> amount
     private final Map<UUID, UUID> bountyPlacers = new HashMap<>(); // target -> placer
+    private static final LegacyComponentSerializer LEGACY = LegacyComponentSerializer.legacy('&');
 
     public BountyManager(FrostStrengthSMP plugin) {
         this.plugin = plugin;
@@ -40,11 +42,11 @@ public class BountyManager {
 
         String msg = plugin.getConfigManager().getPrefix()
                 + "&aBounty of &e" + amount + "&a placed on &f" + target.getName() + "&a!";
-        Bukkit.broadcastMessage(net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer.legacy('&').deserialize(msg));
+        Bukkit.broadcast(LEGACY.deserialize(msg));
 
         if (plugin.getConfigManager().isBountiesAnnouncement()) {
             String targetMsg = plugin.getConfigManager().getPrefix() + "&c&lBOUNTY: &fYou have a bounty on your head!";
-            target.sendMessage(net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer.legacy('&').deserialize(targetMsg));
+            target.sendMessage(LEGACY.deserialize(targetMsg));
         }
         return true;
     }
