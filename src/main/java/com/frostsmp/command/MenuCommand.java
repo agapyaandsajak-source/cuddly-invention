@@ -96,7 +96,7 @@ public class MenuCommand implements CommandExecutor, Listener {
         if (!(event.getWhoClicked() instanceof Player)) return;
         Player player = (Player) event.getWhoClicked();
         Inventory inv = event.getInventory();
-        String title = inv.getTitle();
+        String title = event.getView().getTitle();
 
         if (!title.contains("Frost SMP Menu")) return;
 
