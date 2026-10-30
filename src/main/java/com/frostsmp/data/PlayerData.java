@@ -2,6 +2,7 @@ package com.frostsmp.data;
 
 import com.frostsmp.FrostStrengthSMP;
 import com.frostsmp.ability.WeaponClass;
+import org.bukkit.Location;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
@@ -24,6 +25,14 @@ public class PlayerData {
     private int killstreak;
     private long lastAttackMillis;
     private boolean locked;
+
+    // Home location
+    private Double homeX;
+    private Double homeY;
+    private Double homeZ;
+    private String homeWorld;
+    private Float homeYaw;
+    private Float homePitch;
 
     public PlayerData(UUID uuid) {
         this.plugin = FrostStrengthSMP.getInstance();
@@ -64,6 +73,23 @@ public class PlayerData {
         this.lastAttackMillis = cfg.getLong("last-attack-millis", 0);
         this.locked = cfg.getBoolean("locked", false);
 
+        // Home location
+        this.homeX = cfg.getDouble("home-x", 0.0);
+        this.homeY = cfg.getDouble("home-y", 0.0);
+        this.homeZ = cfg.getDouble("home-z", 0.0);
+        this.homeWorld = cfg.getString("home-world", null);
+        this.homeYaw = (float) cfg.getDouble("home-yaw", 0.0);
+        this.homePitch = (float) cfg.getDouble("home-pitch", 0.0);
+
+        // If no home world set, clear all home fields
+        if (this.homeWorld == null) {
+            this.homeX = null;
+            this.homeY = null;
+            this.homeZ = null;
+            this.homeYaw = null;
+            this.homePitch = null;
+        }
+
         int min = plugin.getConfigManager().getMinStrength();
         int max = plugin.getConfigManager().getMaxStrength();
         if (strength < min) strength = min;
@@ -86,6 +112,23 @@ public class PlayerData {
             cfg.set("killstreak", killstreak);
             cfg.set("last-attack-millis", lastAttackMillis);
             cfg.set("locked", locked);
+
+            // Home location
+            if (homeX != null && homeY != null && homeZ != null && homeWorld != null) {
+                cfg.set("home-x", homeX);
+                cfg.set("home-y", homeY);
+                cfg.set("home-z", homeZ);
+                cfg.set("home-world", homeWorld);
+                cfg.set("home-yaw", homeYaw != null ? homeYaw : 0.0f);
+                cfg.set("home-pitch", homePitch != null ? homePitch : 0.0f);
+            } else {
+                cfg.set("home-x", null);
+                cfg.set("home-y", null);
+                cfg.set("home-z", null);
+                cfg.set("home-world", null);
+                cfg.set("home-yaw", null);
+                cfg.set("home-pitch", null);
+            }
             cfg.save(dataFile);
         } catch (IOException e) {
             plugin.getLogger().warning("Failed to save data for " + uuid);
@@ -134,4 +177,33 @@ public class PlayerData {
 
     public boolean isLocked() { return locked; }
     public void setLocked(boolean locked) { this.locked = locked; }
+
+    public Location getHomeLocation() {
+        if (homeX == null || homeY == null || homeZ == null || homeWorld == null) return null;
+        org.bukkit.World world = org.bukkit.Bukkit.getWorld(homeWorld);
+        if (world == null) return null;
+        return new Location(world, homeX, homeY, homeZ, homeYaw != null ? homeYaw : 0.0f, homePitch != null ? homePitch : 0.0f);
+    }
+
+    public void setHomeLocation(Location location) {
+        if (location == null) {
+            this.homeX = null;
+            this.homeY = null;
+            this.homeZ = null;
+            this.homeWorld = null;
+            this.homeYaw = null;
+            this.homePitch = null;
+            return;
+        }
+        this.homeX = location.getX();
+        this.homeY = location.getY();
+        this.homeZ = location.getZ();
+        this.homeWorld = location.getWorld().getName();
+        this.homeYaw = location.getYaw();
+        this.homePitch = location.getPitch();
+    }
+
+    public boolean hasHome() {
+        return homeX != null && homeY != null && homeZ != null && homeWorld != null;
+    }
 }

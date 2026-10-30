@@ -36,6 +36,18 @@ commands:
     description: EZ items (gaps, anvil, shulker, webs).
     usage: /<command> [gaps|anvil|shulker|webs]
     permission: frostsmp.ez
+  home:
+    description: Teleport to your home.
+    usage: /<command> [set|remove]
+    permission: frostsmp.home
+  sethome:
+    description: Set your home location.
+    usage: /<command>
+    permission: frostsmp.home
+  rtp:
+    description: Random teleport to a safe location.
+    usage: /<command>
+    permission: frostsmp.rtp
 
 permissions:
   frostsmp.use:
@@ -49,4 +61,10 @@ permissions:
     default: op
   frostsmp.ez:
     description: EZ item commands.
+    default: true
+  frostsmp.home:
+    description: Home teleport commands.
+    default: true
+  frostsmp.rtp:
+    description: Random teleport command.
     default: true

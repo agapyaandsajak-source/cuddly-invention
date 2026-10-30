@@ -171,8 +171,7 @@ anticheat:
   kill-aura-tick-threshold: 3
   exempt-op: true
 
-# Custom spawn
-spawn:
+# Home settings\nhome:\n  enabled: true\n  cooldown-seconds: 5\n  max-homes: 1\n\n# RTP (random teleport) settings\nrtp:\n  enabled: true\n  cooldown-seconds: 30\n  range: 5000\n  max-attempts: 100\n\n# Custom spawn\nspawn:
   enabled: true
   world: "world"
   x: 0.5

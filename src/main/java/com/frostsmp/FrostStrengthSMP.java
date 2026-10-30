@@ -7,6 +7,7 @@ import com.frostsmp.config.ConfigManager;
 import com.frostsmp.data.PlayerData;
 import com.frostsmp.listener.*;
 import com.frostsmp.bossbar.BossBarTask;
+import com.frostsmp.manager.HomeManager;
 import com.frostsmp.recipe.RecipeManager;
 import com.frostsmp.tutorial.TutorialManager;
 import com.frostsmp.util.ActionBarTask;
@@ -29,6 +30,7 @@ public class FrostStrengthSMP extends JavaPlugin implements StrengthAPI {
     private RecipeManager recipeManager;
     private BossBarTask bossBarTask;
     private TutorialManager tutorialManager;
+    private HomeManager homeManager;
     private final Map<UUID, PlayerData> playerData = new HashMap<>();
     private Location spawnLocation;
 
@@ -48,6 +50,8 @@ public class FrostStrengthSMP extends JavaPlugin implements StrengthAPI {
 
         tutorialManager = new TutorialManager(this);
 
+        homeManager = new HomeManager(this);
+
         loadSpawn();
 
         getCommand("strength").setExecutor(new StrengthCommand(this));
@@ -58,6 +62,8 @@ public class FrostStrengthSMP extends JavaPlugin implements StrengthAPI {
         getCommand("spawn").setExecutor(new SpawnCommand(this));
         getCommand("ez").setExecutor(new EzCommand(this));
         getCommand("tutorial").setExecutor(new TutorialCommand(this));
+        getCommand("home").setExecutor(new HomeCommand(this));
+        getCommand("rtp").setExecutor(new RtpCommand(this));
 
         Bukkit.getPluginManager().registerEvents(new PlayerJoinListener(this), this);
         Bukkit.getPluginManager().registerEvents(new PlayerQuitListener(this), this);
@@ -107,6 +113,10 @@ public class FrostStrengthSMP extends JavaPlugin implements StrengthAPI {
 
     public TutorialManager getTutorialManager() {
         return tutorialManager;
+    }
+
+    public HomeManager getHomeManager() {
+        return homeManager;
     }
 
     public PlayerData getPlayerData(UUID uuid) {

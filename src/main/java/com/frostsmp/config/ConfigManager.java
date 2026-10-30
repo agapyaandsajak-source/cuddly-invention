@@ -98,6 +98,17 @@ public class ConfigManager {
     private double spawnYaw, spawnPitch;
     private boolean firstJoinEffect;
 
+    // Home settings
+    private boolean homeEnabled;
+    private int homeCooldownSeconds;
+    private int maxHomes;
+
+    // RTP settings
+    private boolean rtpEnabled;
+    private int rtpCooldownSeconds;
+    private int rtpRange;
+    private int rtpMaxAttempts;
+
     private boolean killEffect;
     private boolean levelupEffect;
     private boolean reviveEffect;
@@ -228,6 +239,15 @@ public class ConfigManager {
         spawnYaw = config.getDouble("spawn.yaw", 0.0);
         spawnPitch = config.getDouble("spawn.pitch", 0.0);
         firstJoinEffect = config.getBoolean("spawn.first-join-effect", true);
+
+        homeEnabled = config.getBoolean("home.enabled", true);
+        homeCooldownSeconds = config.getInt("home.cooldown-seconds", 5);
+        maxHomes = config.getInt("home.max-homes", 1);
+
+        rtpEnabled = config.getBoolean("rtp.enabled", true);
+        rtpCooldownSeconds = config.getInt("rtp.cooldown-seconds", 30);
+        rtpRange = config.getInt("rtp.range", 5000);
+        rtpMaxAttempts = config.getInt("rtp.max-attempts", 100);
 
         killEffect = config.getBoolean("effects.kill-effect", true);
         levelupEffect = config.getBoolean("effects.levelup-effect", true);
@@ -362,6 +382,15 @@ public class ConfigManager {
     public double getSpawnYaw() { return spawnYaw; }
     public double getSpawnPitch() { return spawnPitch; }
     public boolean isFirstJoinEffect() { return firstJoinEffect; }
+
+    public boolean isHomeEnabled() { return homeEnabled; }
+    public int getHomeCooldown() { return homeCooldownSeconds; }
+    public int getMaxHomes() { return maxHomes; }
+
+    public boolean isRtpEnabled() { return rtpEnabled; }
+    public int getRtpCooldown() { return rtpCooldownSeconds; }
+    public int getRtpRange() { return rtpRange; }
+    public int getRtpMaxAttempts() { return rtpMaxAttempts; }
 
     public boolean isKillEffect() { return killEffect; }
     public boolean isLevelupEffect() { return levelupEffect; }
