@@ -2,6 +2,7 @@ package com.frostsmp.manager;
 
 import com.frostsmp.FrostStrengthSMP;
 import com.frostsmp.util.MessageUtil;
+import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -51,7 +52,7 @@ public class TpaManager {
         pendingRequests.put(targetId, requesterId);
         requestExpiry.put(requesterId, System.currentTimeMillis() + TPA_TIMEOUT_MILLIS);
 
-        String reqMsg = LEGACY.deserialize(plugin.getConfigManager().getPrefix()
+        Component reqMsg = LEGACY.deserialize(plugin.getConfigManager().getPrefix()
                 + "&e" + requester.getName() + "&a wants to teleport to you.&7\n"
                 + "&7Click &a/tpaccept &7to accept or &c/tpdeny &7to deny.");
         target.sendMessage(reqMsg);
@@ -108,7 +109,7 @@ public class TpaManager {
         // Teleport requester to target
         requester.teleport(player.getLocation());
 
-        String acceptMsg = LEGACY.deserialize(plugin.getConfigManager().getPrefix()
+        Component acceptMsg = LEGACY.deserialize(plugin.getConfigManager().getPrefix()
                 + "&aTeleport request accepted! &f" + requester.getName() + "&a has been teleported to you.");
         player.sendMessage(acceptMsg);
 
