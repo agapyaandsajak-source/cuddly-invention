@@ -1,8 +1,6 @@
 package com.frostsmp.bossbar;
 
 import com.frostsmp.FrostStrengthSMP;
-import com.frostsmp.util.MessageUtil;
-import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.boss.BarColor;
 import org.bukkit.boss.BarStyle;
@@ -17,9 +15,8 @@ public class BossBarTask extends BukkitRunnable {
 
     public BossBarTask(FrostStrengthSMP plugin) {
         this.plugin = plugin;
-        Component title = MessageUtil.component("Frosting SMP");
         this.bossBar = Bukkit.createBossBar(
-                title,
+                plugin.getConfigManager().getPrefix() + "Frosting SMP",
                 BarColor.BLUE,
                 BarStyle.SOLID
         );
