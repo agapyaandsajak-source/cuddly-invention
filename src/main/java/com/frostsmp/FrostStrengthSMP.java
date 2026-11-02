@@ -40,6 +40,7 @@ public class FrostStrengthSMP extends JavaPlugin implements StrengthAPI {
     private TrustCommand trustCommand;
     private TpaManager tpaManager;
     private RankManager rankManager;
+    private DailyRewardManager dailyRewardManager;
     private RankCommand rankCommand;
     private AbuseCommand abuseCommand;
     private final Map<UUID, PlayerData> playerData = new HashMap<>();
@@ -64,6 +65,7 @@ public class FrostStrengthSMP extends JavaPlugin implements StrengthAPI {
         trustCommand = new TrustCommand(this);
         tpaManager = new TpaManager(this);
         rankManager = new RankManager(this);
+        dailyRewardManager = new DailyRewardManager(this);
         rankCommand = new RankCommand(this, rankManager);
         abuseCommand = new AbuseCommand(this, rankManager);
 
@@ -97,6 +99,8 @@ public class FrostStrengthSMP extends JavaPlugin implements StrengthAPI {
         getCommand("tpdeny").setExecutor(new TpaCommand(this, tpaManager));
         getCommand("rank").setExecutor(rankCommand);
         getCommand("abuse").setExecutor(abuseCommand);
+        getCommand("broadcast").setExecutor(new BroadcastCommand(this));
+        getCommand("daily").setExecutor(new DailyCommand(this, dailyRewardManager));
 
         Bukkit.getPluginManager().registerEvents(new PlayerJoinListener(this), this);
         Bukkit.getPluginManager().registerEvents(new PlayerQuitListener(this), this);
@@ -194,6 +198,10 @@ public class FrostStrengthSMP extends JavaPlugin implements StrengthAPI {
 
     public AbuseCommand getAbuseCommand() {
         return abuseCommand;
+    }
+
+    public DailyRewardManager getDailyRewardManager() {
+        return dailyRewardManager;
     }
 
     public PlayerData getPlayerData(UUID uuid) {

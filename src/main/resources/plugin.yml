@@ -97,6 +97,14 @@ commands:
     description: Report admin abuse to AGAPYA.
     usage: /<command> <player> <reason>
     permission: frostsmp.use
+  broadcast:
+    description: Broadcast message to middle of all screens (AGAPYA/Admin only).
+    usage: /<command> <message>
+    permission: frostsmp.admin
+  daily:
+    description: Claim your daily reward (strength + bottle).
+    usage: /<command>
+    permission: frostsmp.use
 
 permissions:
   frostsmp.use:

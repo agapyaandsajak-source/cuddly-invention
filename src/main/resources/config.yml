@@ -72,7 +72,7 @@ anti-farm:
 # Combat tag (logging out during combat kills you)
 combat-tag:
   enabled: true
-  duration-seconds: 15
+  duration-seconds: 20
   logout-kills: true
   block-commands: true
 
@@ -348,3 +348,10 @@ messages:
   maintenance-active: "&cThe server is in maintenance mode."
   # Punish
   punish-used: "&c&lPUNISHED: &f{player} &closes double strength for 24h."
+
+# Daily Rewards (addictive feature - keeps players coming back)
+daily-rewards:
+  enabled: true
+  cooldown-hours: 24
+  strength-gain: 1
+  bottle-reward: true
