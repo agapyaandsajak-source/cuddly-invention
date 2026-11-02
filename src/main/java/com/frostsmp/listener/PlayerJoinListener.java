@@ -65,7 +65,7 @@ public class PlayerJoinListener implements Listener {
 
         // Apply rank bonuses if player is ranked
         RankManager rankManager = plugin.getRankManager();
-        if (rankManager.isRanksEnabled() && rankManager.isRanked(player)) {
+        if (plugin.getConfigManager().isRanksEnabled() && rankManager.isRanked(player)) {
             rankManager.applyRankBonuses(player);
         }
     }

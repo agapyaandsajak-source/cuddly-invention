@@ -21,7 +21,7 @@ public class RankManager {
     // player UUID -> rank number (1 = best)
     private final Map<UUID, Integer> playerRanks = new HashMap<>();
     private final Map<UUID, Long> rankSetTime = new HashMap<>();
-    private static final int MAX_RANK = 20;
+    public static final int MAX_RANK = 20;
     private static final LegacyComponentSerializer LEGACY = LegacyComponentSerializer.legacy('&');
 
     public RankManager(FrostStrengthSMP plugin) {
@@ -59,9 +59,9 @@ public class RankManager {
             // Victim has better rank - swap
             setRank(killer, victimRank);
             setRank(victim, killerRank);
-            String msg = plugin.getConfigManager().getPrefix()
-                    + "&a&lRANK SWAP! &f" + killer.getName() + "&a took &f" + victim.getName() + "'s&a rank (#" + victimRank + ")!";
-            Bukkit.broadcastMessage(LEGACY.deserialize(msg));
+            Component msg = LEGACY.deserialize(plugin.getConfigManager().getPrefix()
+                    + "&a&lRANK SWAP! &f" + killer.getName() + "&a took &f" + victim.getName() + "'s&a rank (#" + victimRank + ")!");
+            Bukkit.broadcast(msg);
         }
     }
 
