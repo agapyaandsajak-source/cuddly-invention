@@ -86,6 +86,13 @@ public class PlayerKillListener implements Listener {
             plugin.getBountyManager().collectBounty(killer, victim);
         }
 
+        // Rank stealing on kill (Ranked SMP feature)
+        if (plugin.getConfigManager().isRanksEnabled()
+                && plugin.getConfigManager().isRankStealingEnabled()
+                && plugin.getRankManager().isRanked(victim)) {
+            plugin.getRankManager().swapRanks(killer, victim);
+        }
+
         if (plugin.getConfigManager().isLossOnDeath()) {
             vData.addDeath();
             vData.resetKillstreak();

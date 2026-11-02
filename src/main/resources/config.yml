@@ -159,6 +159,12 @@ death-certificate:
   custom-model-data: 106
   glow: false
 
+# Ranked SMP settings
+ranks:
+  enabled: true
+  max-ranks: 20
+  rank-stealing-enabled: true
+
 # Revive Token (very expensive, only works at -5 strength)
 revive-token:
   enabled: true

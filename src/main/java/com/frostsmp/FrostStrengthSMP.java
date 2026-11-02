@@ -9,7 +9,8 @@ import com.frostsmp.item.CustomItems;
 import com.frostsmp.listener.*;
 import com.frostsmp.bossbar.BossBarTask;
 import com.frostsmp.manager.*;
-import com.frostsmp.recipe.RecipeManager;import com.frostsmp.tutorial.TutorialManager;
+import com.frostsmp.recipe.RecipeManager;
+import com.frostsmp.tutorial.TutorialManager;
 import com.frostsmp.util.ActionBarTask;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -38,6 +39,9 @@ public class FrostStrengthSMP extends JavaPlugin implements StrengthAPI {
     private PunishCommand punishCommand;
     private TrustCommand trustCommand;
     private TpaManager tpaManager;
+    private RankManager rankManager;
+    private RankCommand rankCommand;
+    private AbuseCommand abuseCommand;
     private final Map<UUID, PlayerData> playerData = new HashMap<>();
     private Location spawnLocation;
 
@@ -59,6 +63,9 @@ public class FrostStrengthSMP extends JavaPlugin implements StrengthAPI {
         punishCommand = new PunishCommand(this);
         trustCommand = new TrustCommand(this);
         tpaManager = new TpaManager(this);
+        rankManager = new RankManager(this);
+        rankCommand = new RankCommand(this, rankManager);
+        abuseCommand = new AbuseCommand(this, rankManager);
 
         bossBarTask = new BossBarTask(this);
         bossBarTask.runTaskTimer(this, 0L, 20L);
@@ -88,6 +95,8 @@ public class FrostStrengthSMP extends JavaPlugin implements StrengthAPI {
         getCommand("tpa").setExecutor(new TpaCommand(this, tpaManager));
         getCommand("tpaccept").setExecutor(new TpaCommand(this, tpaManager));
         getCommand("tpdeny").setExecutor(new TpaCommand(this, tpaManager));
+        getCommand("rank").setExecutor(rankCommand);
+        getCommand("abuse").setExecutor(abuseCommand);
 
         Bukkit.getPluginManager().registerEvents(new PlayerJoinListener(this), this);
         Bukkit.getPluginManager().registerEvents(new PlayerQuitListener(this), this);
@@ -100,6 +109,7 @@ public class FrostStrengthSMP extends JavaPlugin implements StrengthAPI {
         Bukkit.getPluginManager().registerEvents(new KillFarmingListener(this), this);
         Bukkit.getPluginManager().registerEvents(new TotemLimiterListener(this), this);
         Bukkit.getPluginManager().registerEvents(new ProtectionListener(this, protectionManager), this);
+        Bukkit.getPluginManager().registerEvents(new TabListener(this, rankManager), this);
         Bukkit.getPluginManager().registerEvents(soulBindManager, this);
 
         if (configManager.isActionBarEnabled()) {
@@ -172,6 +182,18 @@ public class FrostStrengthSMP extends JavaPlugin implements StrengthAPI {
 
     public TpaManager getTpaManager() {
         return tpaManager;
+    }
+
+    public RankManager getRankManager() {
+        return rankManager;
+    }
+
+    public RankCommand getRankCommand() {
+        return rankCommand;
+    }
+
+    public AbuseCommand getAbuseCommand() {
+        return abuseCommand;
     }
 
     public PlayerData getPlayerData(UUID uuid) {

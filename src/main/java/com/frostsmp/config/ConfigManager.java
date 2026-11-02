@@ -208,6 +208,11 @@ public class ConfigManager {
     // Punish messages
     private String punishUsed;
 
+    // Ranked SMP settings
+    private boolean ranksEnabled;
+    private int maxRanks;
+    private boolean rankStealingEnabled;
+
     public ConfigManager(FrostStrengthSMP plugin) {
         this.plugin = plugin;
     }
@@ -404,6 +409,10 @@ public class ConfigManager {
         maintenanceOff = config.getString("messages.maintenance-off", "&aMaintenance mode disabled.");
         maintenanceActive = config.getString("messages.maintenance-active", "&cThe server is in maintenance mode.");
         punishUsed = config.getString("messages.punish-used", "&c&lPUNISHED: &f{player} &cgets double strength loss for 24h.");
+
+        ranksEnabled = config.getBoolean("ranks.enabled", true);
+        maxRanks = config.getInt("ranks.max-ranks", 20);
+        rankStealingEnabled = config.getBoolean("ranks.rank-stealing-enabled", true);
     }
 
     public void reload() {
@@ -605,6 +614,10 @@ public class ConfigManager {
     public String getMaintenanceOff() { return maintenanceOff; }
     public String getMaintenanceActive() { return maintenanceActive; }
     public String getPunishUsed() { return punishUsed; }
+
+    public boolean isRanksEnabled() { return ranksEnabled; }
+    public int getMaxRanks() { return maxRanks; }
+    public boolean isRankStealingEnabled() { return rankStealingEnabled; }
 
     public void save() {
         try {

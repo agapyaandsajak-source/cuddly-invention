@@ -3,6 +3,7 @@ package com.frostsmp.listener;
 import com.frostsmp.FrostStrengthSMP;
 import com.frostsmp.data.PlayerData;
 import com.frostsmp.item.CustomItems;
+import com.frostsmp.manager.RankManager;
 import com.frostsmp.tutorial.TutorialManager;
 import com.frostsmp.util.MessageUtil;
 import com.frostsmp.util.SpawnEffect;
@@ -60,6 +61,12 @@ public class PlayerJoinListener implements Listener {
             Bukkit.getScheduler().runTaskLater(plugin, () -> {
                 plugin.getTutorialManager().showTutorialPrompt(player);
             }, 10L);
+        }
+
+        // Apply rank bonuses if player is ranked
+        RankManager rankManager = plugin.getRankManager();
+        if (rankManager.isRanksEnabled() && rankManager.isRanked(player)) {
+            rankManager.applyRankBonuses(player);
         }
     }
 }
