@@ -3,15 +3,12 @@ package com.frostsmp.command;
 import com.frostsmp.FrostStrengthSMP;
 import com.frostsmp.util.MessageUtil;
 import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.title.Title;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-
-import java.time.Duration;
 
 public class BroadcastCommand implements CommandExecutor {
 
@@ -44,19 +41,10 @@ public class BroadcastCommand implements CommandExecutor {
         String message = String.join(" ", args);
         Component comp = LEGACY.deserialize(plugin.getConfigManager().getPrefix() + message);
 
-        // Send to middle of screen using action bar AND title subtitle
-        Title title = Title.title(
-                Component.empty(),
-                comp,
-                Title.Times.of(Duration.ZERO, Duration.ofSeconds(3), Duration.ZERO)
-        );
+        // Send to middle of screen using action bar
+        Bukkit.getOnlinePlayers().forEach(p -> p.sendActionBar(comp));
 
-        Bukkit.getOnlinePlayers().forEach(p -> {
-            p.sendActionBar(comp);
-            p.showTitle(title);
-        });
-
-        sender.sendMessage(plugin.getConfigManager().getPrefix() + "&aBroadcast sent to all players!");
+        sender.sendMessage(plugin.getConfigManager().getPrefix() + "&aBroadcast sent to all players' screens!");
         return true;
     }
 }
