@@ -3,7 +3,7 @@ package com.frostsmp.command;
 import com.frostsmp.FrostStrengthSMP;
 import com.frostsmp.util.MessageUtil;
 import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.Title;
+import net.kyori.adventure.text.title.Title;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
