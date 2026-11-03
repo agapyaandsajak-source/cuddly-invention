@@ -1,19 +1,50 @@
-❄️ FROST SMP — Strength-Based PvP ❄️
+❄═════════════════════════════════════════════════════════════════════════════════
+                    ❄️  FROST SMP - Strength x Ranked SMP  ❄️
+══════════════════════════════════════════════════════════════════════════════════
 
-Kill to power. Die to weaken.
-
-•  +1 Strength per kill, −1 per death (+1 attack damage per level)
-•  Max +5, Min −5 (locked at spectator until pardoned/banned/revived)
-•  9 Weapon Classes with Passives (+2) & Ultimates (+4)
-•  The Crown: max Strength + 20 hearts
-•  Revive Token: expensive escape from −5 lock
-•  EZ Items: /ez gaps, anvil, shulker, webs
-•  Roles: Member, VIP, MVP, Strength God, Admin
-•  Built-in anti-cheat + Mace lock
-•  Custom spawn + kill/level-up/revive effects
-
-📋 Paper 26.1.2 (MC 1.21.x)
+🎮 Server: Frost SMP
+🌐 Version: Paper 26.1.2 (MC 1.21.x)
 💬 Discord: https://discord.gg/vPeQfEmyh
-📡 IP: play.frostsmp.example.com
+👑 Owner: AGAPYA
 
-Come claim The Crown. Survive the Frost.
+❄═════════════════════════════════════════════════════════════════════════════════
+
+⚔️ STRENGTH SYSTEM
+   Kill players → +1 Strength | Die → -1 Strength
+   Range: -5 to +5 | At -5 you're locked until admin pardon
+   Strength = Attack Damage (+1 HP per level)
+
+🏆 RANKED SMP (Ranks #1-#20)
+   Kill higher-ranked players to STEAL their rank
+   Better ranks = More hearts, potion duration, XP multiplier
+   Tab shows rank only: [#1] [#20] [UNRANKED]
+
+⚔️ 9 STRENGTH CLASSES
+   Sword • Axe • Bow • Crossbow • Trident • Mace • Spear • Shield • Armor
+   Passive at +2 | Ultimate at +4
+
+🧊 FROST-THEMED FEATURES
+   /mobtoggle      - Freeze hostile mobs around you (50-block radius)
+   /recipes        - Interactive 54-slot recipe GUI for all custom items
+   /daily          - Daily reward: +1 Strength + Strength Bottle
+   /broadcast      - Admin announcements to middle of all screens
+   Big Ender Chest - 54 slots (6 rows) instead of 27
+
+🛡️ CUSTOM ITEMS (CustomModelData + Glow)
+   Frost Sword, Frost Axe, Frost Mace, Frost Armor Set
+   The Crown, Strength Bottle, Revive Token, Strength Shard
+   Reroll Grimoire, Death Certificate
+
+🔒 SECURITY & ANTI-ABUSE
+   Combat Tag (20s) - logout in combat = death
+   Kill farming limits, totem limiter, soul binding
+   Death/Newbie protection, strength lock at -5
+   Admin abuse reports go directly to AGAPYA
+
+🔗 SOCIAL
+   /tpa, /tpaccept, /tpdeny - Teleport requests
+   /home, /rtp, /spawn - Teleportation
+   /menu - Tabbed GUI with Stats, Classes, Crown, Rebirth, Shop
+   /discord - Join our Discord server
+
+❄═════════════════════════════════════════════════════════════════════════════════
