@@ -213,6 +213,11 @@ public class ConfigManager {
     private int maxRanks;
     private boolean rankStealingEnabled;
 
+    // Custom worlds / structures
+    private boolean customNetherEnabled;
+    private boolean customEndEnabled;
+    private boolean customStructuresEnabled;
+
     public ConfigManager(FrostStrengthSMP plugin) {
         this.plugin = plugin;
     }
@@ -413,6 +418,10 @@ public class ConfigManager {
         ranksEnabled = config.getBoolean("ranks.enabled", true);
         maxRanks = config.getInt("ranks.max-ranks", 20);
         rankStealingEnabled = config.getBoolean("ranks.rank-stealing-enabled", true);
+
+        customNetherEnabled = config.getBoolean("custom-worlds.nether.enabled", true);
+        customEndEnabled = config.getBoolean("custom-worlds.end.enabled", true);
+        customStructuresEnabled = config.getBoolean("custom-worlds.structures.enabled", true);
     }
 
     public void reload() {
@@ -618,6 +627,10 @@ public class ConfigManager {
     public boolean isRanksEnabled() { return ranksEnabled; }
     public int getMaxRanks() { return maxRanks; }
     public boolean isRankStealingEnabled() { return rankStealingEnabled; }
+
+    public boolean isCustomNetherEnabled() { return customNetherEnabled; }
+    public boolean isCustomEndEnabled() { return customEndEnabled; }
+    public boolean isCustomStructuresEnabled() { return customStructuresEnabled; }
 
     public void save() {
         try {

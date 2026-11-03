@@ -42,6 +42,7 @@ public class FrostStrengthSMP extends JavaPlugin implements StrengthAPI {
     private RankManager rankManager;
     private DailyRewardManager dailyRewardManager;
     private EnderChestManager enderChestManager;
+    private MobToggleCommand mobToggleCommand;
     private RankCommand rankCommand;
     private AbuseCommand abuseCommand;
     private final Map<UUID, PlayerData> playerData = new HashMap<>();
@@ -68,6 +69,7 @@ public class FrostStrengthSMP extends JavaPlugin implements StrengthAPI {
         rankManager = new RankManager(this);
         dailyRewardManager = new DailyRewardManager(this);
         enderChestManager = new EnderChestManager(this);
+        mobToggleCommand = new MobToggleCommand(this);
         rankCommand = new RankCommand(this, rankManager);
         abuseCommand = new AbuseCommand(this, rankManager);
 
@@ -103,6 +105,7 @@ public class FrostStrengthSMP extends JavaPlugin implements StrengthAPI {
         getCommand("abuse").setExecutor(abuseCommand);
         getCommand("broadcast").setExecutor(new BroadcastCommand(this));
         getCommand("daily").setExecutor(new DailyCommand(this, dailyRewardManager));
+        getCommand("mobtoggle").setExecutor(mobToggleCommand);
 
         Bukkit.getPluginManager().registerEvents(new PlayerJoinListener(this), this);
         Bukkit.getPluginManager().registerEvents(new PlayerQuitListener(this), this);
@@ -117,6 +120,7 @@ public class FrostStrengthSMP extends JavaPlugin implements StrengthAPI {
         Bukkit.getPluginManager().registerEvents(new ProtectionListener(this, protectionManager), this);
         Bukkit.getPluginManager().registerEvents(new TabListener(this, rankManager), this);
         Bukkit.getPluginManager().registerEvents(enderChestManager, this);
+        Bukkit.getPluginManager().registerEvents(new MobToggleListener(this, mobToggleCommand), this);
         Bukkit.getPluginManager().registerEvents(soulBindManager, this);
 
         if (configManager.isActionBarEnabled()) {
@@ -213,6 +217,10 @@ public class FrostStrengthSMP extends JavaPlugin implements StrengthAPI {
 
     public EnderChestManager getEnderChestManager() {
         return enderChestManager;
+    }
+
+    public MobToggleCommand getMobToggleCommand() {
+        return mobToggleCommand;
     }
 
     public PlayerData getPlayerData(UUID uuid) {

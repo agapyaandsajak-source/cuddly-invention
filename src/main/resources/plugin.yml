@@ -105,6 +105,10 @@ commands:
     description: Claim your daily reward (strength + bottle).
     usage: /<command>
     permission: frostsmp.use
+  mobtoggle:
+    description: Toggle hostile mobs around you (frost theme).
+    usage: /<command>
+    permission: frostsmp.use
 
 permissions:
   frostsmp.use:
@@ -136,4 +140,7 @@ permissions:
     default: true
   frostsmp.abuse:
     description: Admin abuse report command.
+    default: true
+  frostsmp.mobtoggle:
+    description: Mob toggle command access.
     default: true

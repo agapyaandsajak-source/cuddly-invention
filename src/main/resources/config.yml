@@ -165,6 +165,15 @@ ranks:
   max-ranks: 20
   rank-stealing-enabled: true
 
+# Custom worlds & structures (frost-themed dimensions)
+custom-worlds:
+  nether:
+    enabled: true
+  end:
+    enabled: true
+  structures:
+    enabled: true
+
 # Revive Token (very expensive, only works at -5 strength)
 revive-token:
   enabled: true
