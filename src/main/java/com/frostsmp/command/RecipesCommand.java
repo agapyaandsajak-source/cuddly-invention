@@ -3,6 +3,7 @@ package com.frostsmp.command;
 import com.frostsmp.FrostStrengthSMP;
 import com.frostsmp.item.CustomItems;
 import com.frostsmp.util.MessageUtil;
+import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -14,6 +15,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class RecipesCommand implements CommandExecutor {
@@ -103,7 +105,11 @@ public class RecipesCommand implements CommandExecutor {
         ItemMeta meta = item.getItemMeta();
         if (meta == null) return item;
 
-        meta.lore(List.of(recipeLines));
+        List<Component> loreComponents = new ArrayList<>();
+        for (String line : recipeLines) {
+            loreComponents.add(LEGACY.deserialize(line));
+        }
+        meta.lore(loreComponents);
         item.setItemMeta(meta);
         return item;
     }
