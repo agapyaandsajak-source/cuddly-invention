@@ -7,7 +7,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.InventoryType;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -30,7 +29,7 @@ public class EnderChestManager implements Listener {
         Player player = (Player) event.getPlayer();
 
         // Only intercept actual ender chests
-        if (event.getInventory().getType() != org.bukkit.inventory.InventoryType.ENDER_CHEST) return;
+        if (!event.getInventory().getType().name().equals("ENDER_CHEST")) return;
 
         event.setCancelled(true);
 
@@ -42,7 +41,7 @@ public class EnderChestManager implements Listener {
                     net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer.legacy('&')
                             .deserialize("&d&lBig Ender Chest"));
             // Load existing items from player's real ender chest
-            org.bukkit.inventory.Inventory realEC = player.getEnderChest();
+            Inventory realEC = player.getEnderChest();
             for (int i = 0; i < Math.min(realEC.getSize(), ENDER_CHEST_SIZE); i++) {
                 if (realEC.getItem(i) != null) {
                     chest.setItem(i, realEC.getItem(i));
@@ -59,7 +58,7 @@ public class EnderChestManager implements Listener {
         if (custom == null) return;
 
         // Save items back to player's real ender chest
-        org.bukkit.inventory.Inventory realEC = player.getEnderChest();
+        Inventory realEC = player.getEnderChest();
         realEC.clear();
         for (int i = 0; i < Math.min(custom.getSize(), realEC.getSize()); i++) {
             if (custom.getItem(i) != null) {
