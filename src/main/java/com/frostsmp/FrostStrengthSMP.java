@@ -41,6 +41,7 @@ public class FrostStrengthSMP extends JavaPlugin implements StrengthAPI {
     private TpaManager tpaManager;
     private RankManager rankManager;
     private DailyRewardManager dailyRewardManager;
+    private EnderChestManager enderChestManager;
     private RankCommand rankCommand;
     private AbuseCommand abuseCommand;
     private final Map<UUID, PlayerData> playerData = new HashMap<>();
@@ -66,6 +67,7 @@ public class FrostStrengthSMP extends JavaPlugin implements StrengthAPI {
         tpaManager = new TpaManager(this);
         rankManager = new RankManager(this);
         dailyRewardManager = new DailyRewardManager(this);
+        enderChestManager = new EnderChestManager(this);
         rankCommand = new RankCommand(this, rankManager);
         abuseCommand = new AbuseCommand(this, rankManager);
 
@@ -114,6 +116,7 @@ public class FrostStrengthSMP extends JavaPlugin implements StrengthAPI {
         Bukkit.getPluginManager().registerEvents(new TotemLimiterListener(this), this);
         Bukkit.getPluginManager().registerEvents(new ProtectionListener(this, protectionManager), this);
         Bukkit.getPluginManager().registerEvents(new TabListener(this, rankManager), this);
+        Bukkit.getPluginManager().registerEvents(enderChestManager, this);
         Bukkit.getPluginManager().registerEvents(soulBindManager, this);
 
         if (configManager.isActionBarEnabled()) {
@@ -127,6 +130,10 @@ public class FrostStrengthSMP extends JavaPlugin implements StrengthAPI {
     public void onDisable() {
         for (PlayerData data : playerData.values()) {
             data.save();
+        }
+        // Save all open ender chests
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            enderChestManager.saveEnderChest(player);
         }
         playerData.clear();
         getLogger().log(Level.INFO, "Frost Strength SMP has been disabled!");
@@ -202,6 +209,10 @@ public class FrostStrengthSMP extends JavaPlugin implements StrengthAPI {
 
     public DailyRewardManager getDailyRewardManager() {
         return dailyRewardManager;
+    }
+
+    public EnderChestManager getEnderChestManager() {
+        return enderChestManager;
     }
 
     public PlayerData getPlayerData(UUID uuid) {

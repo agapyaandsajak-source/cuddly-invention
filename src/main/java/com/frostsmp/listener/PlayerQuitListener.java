@@ -33,5 +33,6 @@ public class PlayerQuitListener implements Listener {
         }
         com.frostsmp.listener.ItemUseListener.removeCrown(player);
         plugin.getTpaManager().clearRequest(player);
+        plugin.getEnderChestManager().saveEnderChest(player);
     }
 }
